@@ -14,14 +14,14 @@ double ** create_gaussian_filter(float sigma, int size)
 			sum+=G[i][j];
 		}
 	}
-	printf("Gaussian filter :\n");
+	//printf("Gaussian filter :\n");
 	for (int i=0;i<size;i++){
 		for(int j=0;j<size;j++){
 			G[i][j]/=sum;
-			printf("%lf ",G[i][j]);
+			//printf("%lf ",G[i][j]);
 
 		}
-		printf("\n");
+		//printf("\n");
 	}
 
 	return G;
@@ -231,7 +231,7 @@ void convert_dmatrix_bmatrix(double **D, byte **B, long nrl, long nrh, long ncl,
 	{	
 		for(int j=ncl;j<nch;j++)
 		{
-			B[i][j]=abs(D[i][j]);
+			B[i][j]=abs(D[i][j])/255;
 		}
 	}
 }
