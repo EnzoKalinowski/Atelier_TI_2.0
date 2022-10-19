@@ -22,12 +22,15 @@ void setup() {
 
 // the loop routine runs over and over again forever:
 void loop() {
-  serialRead=Serial.parseInt();
-  thetaH=serialRead/1000;
-  thetaV=serialRead-thetaH*1000;
+  char buf[6];
+  Serial.readBytes(buf, 6);
+  std::string str(buf);
+  std::string horizontal = str.substr(0, 3);
+  std::string vertical = str.substr(3, 3);
   
-  servoH.write(thetaH);
-  servoV.write(thetaV);
+  servoH.write(std::stoi(horizontal));
+  servoV.write(std::stoi(vertical));
   
   delay(10);
 }
+
