@@ -85,3 +85,18 @@ byte** pickColorRGB(rgb8 **I, byte r, byte g, byte b, long nrl, long nrh, long n
 
     return res;
 }
+
+
+int isRed(rgb8 pxl){
+    uint8 red = pxl.r;
+    uint8 green = pxl.g;
+    uint8 blue = pxl.b;
+
+    int sum = red + green +blue;
+
+    float redRatio = red/sum;
+    float greenRatio = green/sum;
+    float blueRatio = blue/sum;
+
+    (redRatio > blueRatio) && (redRatio > greenRatio) ? 1 : 0;
+}

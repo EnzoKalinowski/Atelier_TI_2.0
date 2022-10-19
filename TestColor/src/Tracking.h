@@ -125,4 +125,25 @@ void convert_rgb8_to_byte(rgb8 **I, byte **B, long nrl, long nrh, long ncl, long
  * @param nch 
  */
 void convert_dmatrix_bmatrix(double **D, byte **B, long nrl, long nrh, long ncl, long nch);
+
+
+/**
+ * @brief function used to track a red object, and is called with an int[2] array to store the results
+ *
+ * this is used to determine the average vertical position of a red object on the image
+ * by getting the number of red pixels in each line, and then calculating the weighted average
+ * of this data. Basically, this will give us the Y coordinate of the barycenter of red pixels
+ * in the image
+ *
+ * @param I Image rgb8
+ * @param nrl number row low
+ * @param nrh number row high
+ * @param ncl number column low
+ * @param nch number column high
+ * @return the Y coordinate (between nrl and nrh) and the X (between ncl and nch) of the red barycenter
+ * the Y coordinate is the first element of the returned table
+ */
+int* getRedBarycenter(rgb8 **I, long nrl, long nrh, long ncl, long nch);
+
+
 #endif // __TRACKING_H__
