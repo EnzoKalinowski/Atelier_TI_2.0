@@ -143,7 +143,7 @@ void convert_dmatrix_bmatrix(double **D, byte **B, long nrl, long nrh, long ncl,
  * @return the Y coordinate (between nrl and nrh) and the X (between ncl and nch) of the red barycenter
  * the Y coordinate is the first element of the returned table
  */
-int* getRedBarycenter(rgb8 **I, long nrl, long nrh, long ncl, long nch);
+void getRedBarycenter(rgb8 **I, long nrl, long nrh, long ncl, long nch, int* result);
 
 
 #endif // __TRACKING_H__
