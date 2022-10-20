@@ -91,12 +91,12 @@ int isRed(rgb8 pxl){
     uint8 red = pxl.r;
     uint8 green = pxl.g;
     uint8 blue = pxl.b;
-
+    float alpha = 0.1; //parametre de seuil
     int sum = red + green +blue;
 
     float redRatio = red/sum;
     float greenRatio = green/sum;
     float blueRatio = blue/sum;
 
-    (redRatio > blueRatio) && (redRatio > greenRatio) ? 1 : 0;
+    (redRatio > blueRatio + alpha) && (redRatio > greenRatio + alpha) ? 1 : 0;
 }
