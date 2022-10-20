@@ -17,6 +17,9 @@ main: create_folders $(OBJS)
 $(BUILD_DIR)/%.c.o: %.c
 	@mkdir -p $(dir $@)
 	g++ $(CPPFLAGS) -c $< -o $@
+$(BUILD_DIR)/%.cpp.o: %.cpp
+	@mkdir -p $(dir $@)
+	g++ $(CPPFLAGS) -c $< -o $@
 
 create_folders:
 	@mkdir -p $(BIN_DIR)
