@@ -5,6 +5,7 @@
 #include "Preprocessing.h"
 #include <sys/time.h>
 #include "opencv2/opencv.hpp"
+#include <thread>
 
 using namespace cv;
 
@@ -70,10 +71,21 @@ int main(){
 
     rgbImage=convertMatToRGB8(image, &nrl, &nrh, &ncl, &nch);
     byteImage=convertMatToByte(imageResized, &nrl, &nrh, &ncl, &nch);
+    harrisImage = dmatrix0(nrl, nrh, ncl, nch);
 
     // convert_rgb8_to_byte(rgbImage, byteImage, nrl, nrh, ncl, nch);
-    harrisImage = harris(byteImage, filter, size, lambda, nrl, nrh, ncl, nch);
+    int quarter = (nrh+1) / 4;
+    std::thread t1(harris, byteImage, harrisImage, filter, size, lambda, nrl, nrh, ncl, nch, 0, quarter);
+    std::thread t2(harris, byteImage, harrisImage, filter, size, lambda, nrl, nrh, ncl, nch, quarter+1, 2*quarter);
+    std::thread t3(harris, byteImage, harrisImage, filter, size, lambda, nrl, nrh, ncl, nch, 2*quarter+1, 3*quarter);
+    std::thread t4(harris, byteImage, harrisImage, filter, size, lambda, nrl, nrh, ncl, nch, 3*quarter+1, nrh);
+    t1.join();
+    t2.join();
+    t3.join();
+    t4.join();
     convert_dmatrix_bmatrix(harrisImage, byteImage, nrl, nrh, ncl, nch);
+
+    SavePGM_bmatrix(byteImage, nrl, nrh, ncl, nch, "harris_thread.pgm");
 
     while (true)
     {

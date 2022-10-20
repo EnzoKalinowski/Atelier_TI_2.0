@@ -28,48 +28,45 @@ double ** create_gaussian_filter(float sigma, int size)
 	return G;
 }
 
-double ** harris(byte **I, double** filter, int filter_size, float lambda, long nrl, long nrh, long ncl, long nch)
+double ** harris(byte **I, double **C, double** filter, int filter_size, float lambda, long nrl, long nrh, long ncl, long nch, int start, int end)
 {
-	double ** C;
 	double ** Ix;
 	double ** Iy;
 	double Ix_square, Iy_square, IxIy;
 
 	int max=filter_size/2;
 
-	C= dmatrix0(nrl, nrh, ncl, nch);
 	Ix= dmatrix(nrl,nrh,ncl,nch);
 	Iy= dmatrix(nrl,nrh,ncl,nch);
 
 	sobel(I,Ix,Iy,nrl,nrh,ncl,nch);
 
-	for (int x=nrl+max; x<=nrh-max; x++)
+	for (int x=start+max; x<=end-max; x++)
+	{
+		for(int y=ncl+max; y<=nch-max; y++)
 		{
-			for(int y=ncl+max; y<=nch-max; y++)
+			Ix_square=0;
+			Iy_square=0;
+			IxIy=0;
+
+			for (int i=-max;i<=max;i++)
 			{
-				Ix_square=0;
-				Iy_square=0;
-				IxIy=0;
-
-				for (int i=-max;i<=max;i++)
+				for(int j=-max;j<=max;j++)
 				{
-					for(int j=-max;j<=max;j++)
-					{
 
-						Ix_square+= filter[i+max][j+max]*pow(Ix[x+i][y+j],2);
-						Iy_square+= filter[i+max][j+max]*pow(Iy[x+i][y+j],2);
-						IxIy+= filter[i+max][j+max]*(Ix[x+i][y+j]*Iy[x+i][y+j]);
+					Ix_square+= filter[i+max][j+max]*pow(Ix[x+i][y+j],2);
+					Iy_square+= filter[i+max][j+max]*pow(Iy[x+i][y+j],2);
+					IxIy+= filter[i+max][j+max]*(Ix[x+i][y+j]*Iy[x+i][y+j]);
 
-					}
 				}
-
-				C[x][y]=(Ix_square*Iy_square)-(IxIy)-(lambda*pow(Ix_square+Iy_square,2));
 			}
+
+			C[x][y]=(Ix_square*Iy_square)-(IxIy)-(lambda*pow(Ix_square+Iy_square,2));
 		}
+	}
 
 	free_dmatrix(Ix,nrl, nrh, ncl, nch);
 	free_dmatrix(Iy,nrl, nrh, ncl, nch);
-	return C;
 }
 
 double ** gradient_direction_interest_points(byte **I, double** filter, int filter_size, long nrl, long nrh, long ncl, long nch)
