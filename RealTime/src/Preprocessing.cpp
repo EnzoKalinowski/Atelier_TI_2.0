@@ -89,26 +89,41 @@ byte** pickColorRGB(rgb8 **I, byte r, byte g, byte b, long nrl, long nrh, long n
 rgb8** convertMatToRGB8(cv::Mat mat, long *nrl, long *nrh, long *ncl, long *nch){
     int width = mat.cols;
     int height = mat.rows;
-    // printf("width:%d,height:%d\n",width,height);
 
     *nrl = 0;
     *nrh = height-1;
     *ncl = 0;
     *nch = width-1;
-    // printf("before init rgb8matrix\n");
     rgb8 **out = rgb8matrix(*nrl, *nrh, *ncl, *nch);
-    // printf("before for loop\n");
 
     for(int i = *nrl; i < *nrh; i++){
         for(int j = *ncl; j < *nch; j++){
-            // printf("in loop\n");
-            // printf("i:%d, j:%d\n",i,j);
             Vec3b color = mat.at<Vec3b>(Point(j, i));
-            // printf("vector color create\n");
             out[i][j].r = color[0];
             out[i][j].g = color[1];
             out[i][j].b = color[2];
-            // printf("out filled\n");
+        }
+    }
+
+    return out;
+}
+
+byte** convertMatToByte(cv::Mat mat, long *nrl, long *nrh, long *ncl, long *nch){
+    int width = mat.cols;
+    int height = mat.rows;
+    int grey;
+
+    *nrl = 0;
+    *nrh = height-1;
+    *ncl = 0;
+    *nch = width-1;
+    byte **out = bmatrix(*nrl, *nrh, *ncl, *nch);
+
+    for(int i = *nrl; i < *nrh; i++){
+        for(int j = *ncl; j < *nch; j++){
+            Vec3b color = mat.at<Vec3b>(Point(j, i));
+            grey = (color[0] + color[1] + color[2]) / 3;
+            out[i][j] = grey;
         }
     }
 
