@@ -145,5 +145,5 @@ void convert_dmatrix_bmatrix(double **D, byte **B, long nrl, long nrh, long ncl,
  */
 void getRedBarycenter(rgb8 **I, long nrl, long nrh, long ncl, long nch, int* result);
 
-
+//1280*720 ?
 #endif // __TRACKING_H__
