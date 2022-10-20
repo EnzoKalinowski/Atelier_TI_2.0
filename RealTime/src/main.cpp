@@ -9,6 +9,8 @@
 #include <errno.h> // Error integer and strerror() function
 #include <termios.h> // Contains POSIX terminal control definitions
 #include <unistd.h> // write(), read(), close()
+// #include <thread>
+
 using namespace cv;
 
 using namespace std;
@@ -67,10 +69,21 @@ int main(){
 
     rgbImage=convertMatToRGB8(image, &nrl, &nrh, &ncl, &nch);
     byteImage=convertMatToByte(imageResized, &nrl, &nrh, &ncl, &nch);
+    harrisImage = dmatrix0(nrl, nrh, ncl, nch);
 
     // convert_rgb8_to_byte(rgbImage, byteImage, nrl, nrh, ncl, nch);
-    harrisImage = harris(byteImage, filter, size, lambda, nrl, nrh, ncl, nch);
+    // int quarter = (nrh+1) / 4;
+    // std::thread th1(harris, byteImage, harrisImage, filter, size, lambda, nrl, nrh, ncl, nch, 0, quarter);
+    // std::thread th2(harris, byteImage, harrisImage, filter, size, lambda, nrl, nrh, ncl, nch, quarter+1, 2*quarter);
+    // std::thread th3(harris, byteImage, harrisImage, filter, size, lambda, nrl, nrh, ncl, nch, 2*quarter+1, 3*quarter);
+    // std::thread th4(harris, byteImage, harrisImage, filter, size, lambda, nrl, nrh, ncl, nch, 3*quarter+1, nrh);
+    // th1.join();
+    // th2.join();
+    // th3.join();
+    // th4.join();
     convert_dmatrix_bmatrix(harrisImage, byteImage, nrl, nrh, ncl, nch);
+
+    SavePGM_bmatrix(byteImage, nrl, nrh, ncl, nch, "harris_thread.pgm");
 
     while (true)
     {

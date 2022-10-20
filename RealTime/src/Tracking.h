@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
 #include "./NRC/def.h"
 #include "./NRC/nrio.h"
 #include "./NRC/nrarith.h"
@@ -33,7 +34,7 @@ double ** create_gaussian_filter(float sigma, int size);
  * @param nch 
  * @return double** 
  */
-double ** harris(byte **I, double** filter, int filter_size, float lambda, long nrl, long nrh, long ncl, long nch);
+double ** harris(byte **I, double **C, double** filter, int filter_size, float lambda, long nrl, long nrh, long ncl, long nch, int start, int end);
 
 /**
  * @brief convolve an image with a filter
