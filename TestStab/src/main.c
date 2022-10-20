@@ -68,13 +68,24 @@ int main(){
 
     //Vecteur (double **imgT, double **imgTplusUn, int *x, int *y, long nrl, long nrh, long ncl, long nch)
     //printf("On calcul le vecteur \n");
+    time_t temps3 = time(NULL);
     Vecteur (ImgTGris, ImgTPlusUnGris, &x, &y, nrl, nrh, ncl, nch);
     //printf("x = %p, y = %p.",*x,*y);
     printf("x = %d, y = %d.\n",x,y);
     //printf("FIN !!! \n");
 
     time_t temps2 = time(NULL);
-    float time = temps2 - temps1;
+    float tempsfct1 = temps2-temps3;
+    printf("La premiere fct a prit %f secondes. \n", tempsfct1);
+
+
+    VecteurOpti(ImgTGris, ImgTPlusUnGris, &x, &y, nrl, nrh, ncl, nch);
+    printf("x = %d, y = %d.\n",x,y);
+    time_t temps4 = time(NULL);
+    float tempsfct2 = temps4-temps2;
+    printf("La premiere fct a prit %f secondes. \n", tempsfct2);
+
+    float time = temps4 - temps1;
     printf("Le progrqme a prit %f secondes. \n", time);
 
     free_rgb8matrix(ImgT, nrl, nrh, ncl, nch);
