@@ -69,9 +69,12 @@ int main(){
     byteImage=bmatrix(nrl, nrh, ncl, nch);
     byteImage2=bmatrix(nrl, nrh, ncl, nch);
 
+    cout<< "HERE"<<endl;
+
     convert_rgb8_to_byte(rgbImage, byteImage, nrl, nrh, ncl, nch);
     harrisImage = harris(byteImage, filter, size, lambda, nrl, nrh, ncl, nch);
     convert_dmatrix_bmatrix(harrisImage, byteImage, nrl, nrh, ncl, nch);
+    cout<< "HERE2"<<endl;
 
     while (true)
     {
@@ -82,16 +85,18 @@ int main(){
         gettimeofday(&t2,0);
         ms=diff_ms(t2,t1);
         // DEBUT TRAITEMENT
-        
+        cout<< "HERE3"<<endl;
+
         rgbImage2=convertMatToRGB8(image, &nrl, &nrh, &ncl, &nch);
         convert_rgb8_to_byte(rgbImage2, byteImage2, nrl, nrh, ncl, nch);
-                
         harrisImage2 = harris(byteImage2, filter, size, lambda, nrl, nrh, ncl, nch);
-
         convert_dmatrix_bmatrix(harrisImage2, byteImage2, nrl, nrh, ncl, nch);
+
+        cout<< "HERE4"<<endl;
 
         Vecteur (byteImage, byteImage2, &x, &y, nrl, nrh, ncl, nch);
         printf("x = %d, y = %d.\n",x,y);
+        cout<< "HERE5"<<endl;
 
         byteImage=byteImage2;
 
