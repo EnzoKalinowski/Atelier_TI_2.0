@@ -5,7 +5,10 @@
 #include "Preprocessing.h"
 #include <sys/time.h>
 #include "opencv2/opencv.hpp"
-
+#include <fcntl.h> // Contains file controls like O_RDWR
+#include <errno.h> // Error integer and strerror() function
+#include <termios.h> // Contains POSIX terminal control definitions
+#include <unistd.h> // write(), read(), close()
 using namespace cv;
 
 using namespace std;
@@ -32,6 +35,7 @@ int main(){
 
     char fpsDisplay[50];
     int x,y;
+    int h=90,v=90;
     FILE* fichier = NULL;
     timeval t1 ,t2;
     double ms;
@@ -46,16 +50,9 @@ int main(){
 
     double** filter = create_gaussian_filter(sigma, size);
 
+    ofstream arduino;
 
-    // fichier = fopen("/dev/ttyACM0", "w");
-    
-    // if (fichier != NULL)
-    // {   printf("Communication série initialisée\n");
-    //     fclose(fichier);
-    // }else
-    // {
-    //     perror("\t/!\\ PORT SERIE INTROUVABLE \n");
-    // }
+	arduino.open( "/dev/ttyACM0");
 
     namedWindow("Camera");
  
@@ -108,16 +105,46 @@ int main(){
         ms=diff_ms(t2,t1);
         fps=1.0/(ms/1000);
 
+        
         // sprintf (name, "FPS : %f", 1/((double)ms/1000));
-        sprintf (fpsDisplay, "FPS : %f     x: %d y:%d", fps,x,y);
+       
+        circle(imageResized, Point(x,y), 3, Scalar(0, 255, 0));
 
+        x=x-nrh/2;
+        y=y-nch/2;
+        
+        sprintf (fpsDisplay, "FPS : %f     x: %d y:%d", fps,x,y);
         putText(imageResized, fpsDisplay, cv::Point(30,30), FONT_HERSHEY_COMPLEX, 1.0, cv::Scalar(20,20,25), 1, LINE_AA);
-        circle(imageResized, Point(x,y), 3, Scalar(0, 0, 255));
         imshow("Camera", imageResized);
 
-        if(waitKey(33) == 27) break;
-    }
+        if(x>10)
+        {
+            h+=5;
+        }else
+        {
+            if(x<-10)
+            {
+                h-=5;
+            }
 
+        }
+
+        if(y>10)
+        {
+            v+=5;
+        }else
+        {
+            if(y<-10)
+            {
+                v-=5;
+            }
+
+        }
+        arduino<< setw(3)<<h<<setw(3)<<v<<endl;
+        if(waitKey(33) == 27) break;
+
+    }
+    arduino.close();
         // free_rgb8matrix(rgbImage, nrl, nrh, ncl, nch);
         // free_rgb8matrix(rgbImage2, nrl, nrh, ncl, nch);
 

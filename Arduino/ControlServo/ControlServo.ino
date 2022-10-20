@@ -24,6 +24,7 @@ void setup() {
 void loop() {
   char buf[6];
   Serial.readBytes(buf, 7);
+ 
   String str(buf);
   String horizontal = str.substring(0, 3);
   String vertical = str.substring(3, 6);
