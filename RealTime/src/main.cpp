@@ -21,6 +21,7 @@ double diff_ms(timeval t1, timeval t2)
 int main(){
     //images
     Mat image;
+    Mat imageResized;
     rgb8 ** rgbImage;
     rgb8 ** rgbImage2;
     byte **byteImage;
@@ -65,16 +66,16 @@ int main(){
         perror("\t/!\\ CANNOT OPEN CAMERA\n");
     }
     cap.read(image);
-    rgbImage=convertMatToRGB8(image, &nrl, &nrh, &ncl, &nch);
+    resize(image,imageResized,Size(896,504));
+
+    rgbImage=convertMatToRGB8(imageResized, &nrl, &nrh, &ncl, &nch);
     byteImage=bmatrix(nrl, nrh, ncl, nch);
     byteImage2=bmatrix(nrl, nrh, ncl, nch);
 
-    cout<< "HERE"<<endl;
 
     convert_rgb8_to_byte(rgbImage, byteImage, nrl, nrh, ncl, nch);
     harrisImage = harris(byteImage, filter, size, lambda, nrl, nrh, ncl, nch);
     convert_dmatrix_bmatrix(harrisImage, byteImage, nrl, nrh, ncl, nch);
-    cout<< "HERE2"<<endl;
 
     while (true)
     {
@@ -82,31 +83,29 @@ int main(){
         
         
         cap.read(image);
-        gettimeofday(&t2,0);
-        ms=diff_ms(t2,t1);
+        resize(image,imageResized,Size(896,504));
+        
         // DEBUT TRAITEMENT
-        cout<< "HERE3"<<endl;
 
-        rgbImage2=convertMatToRGB8(image, &nrl, &nrh, &ncl, &nch);
+        rgbImage2=convertMatToRGB8(imageResized, &nrl, &nrh, &ncl, &nch);
         convert_rgb8_to_byte(rgbImage2, byteImage2, nrl, nrh, ncl, nch);
         harrisImage2 = harris(byteImage2, filter, size, lambda, nrl, nrh, ncl, nch);
         convert_dmatrix_bmatrix(harrisImage2, byteImage2, nrl, nrh, ncl, nch);
 
-        cout<< "HERE4"<<endl;
 
         Vecteur (byteImage, byteImage2, &x, &y, nrl, nrh, ncl, nch);
-        printf("x = %d, y = %d.\n",x,y);
-        cout<< "HERE5"<<endl;
+        // printf("x = %d, y = %d.\n",x,y);
 
         byteImage=byteImage2;
 
         //FIN TRAITEMENT 
 
-
+        gettimeofday(&t2,0);
+        ms=diff_ms(t2,t1);
         fps=1.0/(ms/1000);
 
         // sprintf (name, "FPS : %f", 1/((double)ms/1000));
-        sprintf (fpsDisplay, "FPS : %f", fps);
+        sprintf (fpsDisplay, "FPS : %f     x: %d y:%d", fps,x,y);
 
         putText(image, fpsDisplay, cv::Point(30,30), FONT_HERSHEY_COMPLEX, 1.0, cv::Scalar(20,20,25), 1, LINE_AA);
         imshow("Camera", image);
