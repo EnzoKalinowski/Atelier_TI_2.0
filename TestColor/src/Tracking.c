@@ -265,3 +265,23 @@ void getRedBarycenter(rgb8 **I, long nrl, long nrh, long ncl, long nch, int* res
     *(result + 1) /= (totalRedPxl+1);
 
 }
+
+void getBarycenterColor(rgb8 **I, long nrl, long nrh, long ncl, long nch, int *x, int *y){
+	*x = 0;
+	*y = 0;
+	int total = 0;
+	for(int i = nrl; i < nrh; i++){
+		for(int j = ncl; j < nch; j++){
+			if(isOfColor(I[i][j], 10, 29, 52) == 1){
+				*y += i;
+				*x += j;
+
+				++total;
+			}
+		}
+	}
+
+	printf("x:%d y:%d total:%d\n", *x, *y, total);
+	*x /= total;
+	*y /= total;
+}

@@ -88,15 +88,41 @@ byte** pickColorRGB(rgb8 **I, byte r, byte g, byte b, long nrl, long nrh, long n
 
 
 int isRed(rgb8 pxl){
-    uint8 red = pxl.r;
-    uint8 green = pxl.g;
-    uint8 blue = pxl.b;
+    byte red = pxl.r;
+    byte green = pxl.g;
+    byte blue = pxl.b;
     float alpha = 0.1; //parametre de seuil
-    int sum = red + green +blue;
+    int sum = red + green + blue;
 
-    float redRatio = red/sum;
-    float greenRatio = green/sum;
-    float blueRatio = blue/sum;
+    double redRatio = (double) red/sum;
+    double greenRatio = (double) green/sum;
+    double blueRatio = (double) blue/sum;
 
-    (redRatio > blueRatio + alpha) && (redRatio > greenRatio + alpha) ? 1 : 0;
+    // (redRatio > blueRatio + alpha) && (redRatio > greenRatio + alpha) ? 1 : 0;
+    if((blueRatio > redRatio + alpha) && (blueRatio > greenRatio + alpha)){
+        // printf("1\n");
+        return 1;
+    }else{
+        // printf("0\n");
+        return 0;
+    }
+}
+
+int isOfColor(rgb8 pxl, byte r, byte g, byte b){
+    double threshold = 0.2;
+    double targetTotal = r + g + b;
+    double targetR = r / targetTotal;
+    double targetG = g / targetTotal;
+    double targetB = b / targetTotal;
+
+    double total = pxl.r + pxl.g + pxl.b;
+    double pxlR = pxl.r / total;
+    double pxlG = pxl.g / total;
+    double pxlB = pxl.b / total;
+
+    if((targetR-threshold < pxlR && pxlR < targetR+threshold) && (targetG-threshold < pxlG && pxlG < targetG+threshold) && (targetB-threshold < pxlB && pxlB < targetB+threshold)){
+        return 1;
+    }else{
+        return 0;
+    }
 }

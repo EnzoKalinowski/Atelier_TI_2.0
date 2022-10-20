@@ -9,9 +9,11 @@ int main(){
 	rgb8 **I;
 
 	int tab[2];
-	I=LoadPPM_rgb8matrix("droite.ppm",&nrl,&nrh,&ncl,&nch);
-	getRedBarycenter(I, nrl, nrh, ncl, nch, tab);
-    printf("%d, %d", *tab, *(tab+1));
+	int x, y;
+	I=LoadPPM_rgb8matrix("droite_600x450.ppm",&nrl,&nrh,&ncl,&nch);
+	// getRedBarycenter(I, nrl, nrh, ncl, nch, tab);
+	getBarycenterColor(I, nrl, nrh, ncl, nch, &x, &y);
+    printf("%d, %d\n", x, y);
 
     return 0;
 }

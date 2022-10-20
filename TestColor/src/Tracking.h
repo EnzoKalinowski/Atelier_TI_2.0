@@ -144,6 +144,7 @@ void convert_dmatrix_bmatrix(double **D, byte **B, long nrl, long nrh, long ncl,
  * the Y coordinate is the first element of the returned table
  */
 void getRedBarycenter(rgb8 **I, long nrl, long nrh, long ncl, long nch, int* result);
+void getBarycenterColor(rgb8 **I, long nrl, long nrh, long ncl, long nch, int *x, int *y);
 
 //1280*720 ?
 #endif // __TRACKING_H__
