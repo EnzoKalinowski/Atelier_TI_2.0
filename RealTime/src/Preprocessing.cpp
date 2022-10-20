@@ -99,9 +99,9 @@ rgb8** convertMatToRGB8(cv::Mat mat, long *nrl, long *nrh, long *ncl, long *nch)
     for(int i = *nrl; i < *nrh; i++){
         for(int j = *ncl; j < *nch; j++){
             Vec3b color = mat.at<Vec3b>(Point(j, i));
-            out[i][j].r = color[0];
+            out[i][j].r = color[2];
             out[i][j].g = color[1];
-            out[i][j].b = color[2];
+            out[i][j].b = color[0];
         }
     }
 

@@ -112,6 +112,7 @@ int main(){
         sprintf (fpsDisplay, "FPS : %f     x: %d y:%d", fps,x,y);
 
         putText(imageResized, fpsDisplay, cv::Point(30,30), FONT_HERSHEY_COMPLEX, 1.0, cv::Scalar(20,20,25), 1, LINE_AA);
+        circle(imageResized, Point(x,y), 3, Scalar(0, 0, 255));
         imshow("Camera", imageResized);
 
         if(waitKey(33) == 27) break;

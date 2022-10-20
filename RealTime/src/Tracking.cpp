@@ -243,7 +243,7 @@ void getBarycenterColor(rgb8 **I, long nrl, long nrh, long ncl, long nch, int *x
 	int total = 0;
 	for(int i = nrl; i < nrh; i++){
 		for(int j = ncl; j < nch; j++){
-			if(isOfColor(I[i][j], 10, 29, 52) == 1){
+			if(isOfColor(I[i][j], 64, 12, 14) == 1){
 				*y += i;
 				*x += j;
 
