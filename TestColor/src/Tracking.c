@@ -261,7 +261,7 @@ void getRedBarycenter(rgb8 **I, long nrl, long nrh, long ncl, long nch, int* res
     for(int index = 0; index < nch; index ++){
         *(result + 1) += (index * tabCol[index]);
     }
-    *result /= totalRedPxl;
-    *(result + 1) /= totalRedPxl;
+    *result /= (totalRedPxl+1);
+    *(result + 1) /= (totalRedPxl+1);
 
 }
