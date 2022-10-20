@@ -240,25 +240,28 @@ void convert_dmatrix_bmatrix(double **D, byte **B, long nrl, long nrh, long ncl,
 void getRedBarycenter(rgb8 **I, long nrl, long nrh, long ncl, long nch, int* result){
     int tabRow[nrh];
     int tabCol[nch];
+    int totalRedPxl = 0;
 
+    *result = 0;
+    *(result +1) =0;
 
-    for(int i=nrl;i<nrh;i++)
-    {
-        for(int j=ncl;j<nch;j++)
-        {
-            if(isRed(I[i][j])){
+    for(int i = nrl; i < nrh; i++){
+        for (int j = ncl; j < nch; j++) {
+            if (isRed(I[i][j])) {
                 tabRow[i]++;
                 tabCol[j]++;
+                totalRedPxl ++;
             }
         }
     }
+
     for(int index = 0; index < nrh; index ++){
         *result += (index * tabRow[index]);
     }
     for(int index = 0; index < nch; index ++){
         *(result + 1) += (index * tabCol[index]);
     }
-    *result /= nrh;
-    *(result + 1) /= nch;
+    *result /= totalRedPxl;
+    *(result + 1) /= totalRedPxl;
 
 }
