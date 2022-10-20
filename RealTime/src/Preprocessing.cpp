@@ -129,3 +129,22 @@ byte** convertMatToByte(cv::Mat mat, long *nrl, long *nrh, long *ncl, long *nch)
 
     return out;
 }
+
+int isOfColor(rgb8 pxl, byte r, byte g, byte b){
+    double threshold = 0.2;
+    double targetTotal = r + g + b;
+    double targetR = r / targetTotal;
+    double targetG = g / targetTotal;
+    double targetB = b / targetTotal;
+
+    double total = pxl.r + pxl.g + pxl.b;
+    double pxlR = pxl.r / total;
+    double pxlG = pxl.g / total;
+    double pxlB = pxl.b / total;
+
+    if((targetR-threshold < pxlR && pxlR < targetR+threshold) && (targetG-threshold < pxlG && pxlG < targetG+threshold) && (targetB-threshold < pxlB && pxlB < targetB+threshold)){
+        return 1;
+    }else{
+        return 0;
+    }
+}

@@ -1,6 +1,5 @@
-build/src/Tracking.cpp.o: src/Tracking.cpp src/Tracking.h src/./NRC/def.h \
- src/./NRC/nrio.h src/./NRC/nrarith.h src/./NRC/nralloc.h \
- src/Preprocessing.h /usr/include/opencv4/opencv2/opencv.hpp \
+build/src/Preprocessing.cpp.o: src/Preprocessing.cpp src/Preprocessing.h \
+ /usr/include/opencv4/opencv2/opencv.hpp \
  /usr/include/opencv4/opencv2/opencv_modules.hpp \
  /usr/include/opencv4/opencv2/core.hpp \
  /usr/include/opencv4/opencv2/core/cvdef.h \
@@ -129,17 +128,8 @@ build/src/Tracking.cpp.o: src/Tracking.cpp src/Tracking.h src/./NRC/def.h \
  /usr/include/opencv4/opencv2/viz/types.hpp \
  /usr/include/opencv4/opencv2/viz/widgets.hpp \
  /usr/include/opencv4/opencv2/viz/viz3d.hpp \
- /usr/include/opencv4/opencv2/viz/vizcore.hpp
-
-src/Tracking.h:
-
-src/./NRC/def.h:
-
-src/./NRC/nrio.h:
-
-src/./NRC/nrarith.h:
-
-src/./NRC/nralloc.h:
+ /usr/include/opencv4/opencv2/viz/vizcore.hpp src/./NRC/def.h \
+ src/./NRC/nrio.h src/./NRC/nrarith.h src/./NRC/nralloc.h
 
 src/Preprocessing.h:
 
@@ -402,3 +392,11 @@ src/Preprocessing.h:
 /usr/include/opencv4/opencv2/viz/viz3d.hpp:
 
 /usr/include/opencv4/opencv2/viz/vizcore.hpp:
+
+src/./NRC/def.h:
+
+src/./NRC/nrio.h:
+
+src/./NRC/nrarith.h:
+
+src/./NRC/nralloc.h:

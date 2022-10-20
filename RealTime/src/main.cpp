@@ -10,7 +10,7 @@ using namespace cv;
 
 using namespace std;
 
-#define STABILISATION_MODE
+// #define STABILISATION_MODE
 
 double diff_ms(timeval t1, timeval t2)
 {
@@ -38,7 +38,7 @@ int main(){
     double fps;
 
     //gaussian filter parameters
-    float sigma = 0.5;
+    float sigma = 0.3;
     int size = 3;
 
     float lambda = sigma;
@@ -59,7 +59,7 @@ int main(){
 
     namedWindow("Camera");
  
-    VideoCapture cap(2);
+    VideoCapture cap(0);
 
     if (!cap.isOpened())
     {
@@ -68,36 +68,40 @@ int main(){
     cap.read(image);
     resize(image,imageResized,Size(896,504));
 
-    rgbImage=convertMatToRGB8(imageResized, &nrl, &nrh, &ncl, &nch);
-    byteImage=bmatrix(nrl, nrh, ncl, nch);
-    byteImage2=bmatrix(nrl, nrh, ncl, nch);
+    rgbImage=convertMatToRGB8(image, &nrl, &nrh, &ncl, &nch);
+    byteImage=convertMatToByte(imageResized, &nrl, &nrh, &ncl, &nch);
 
-
-    convert_rgb8_to_byte(rgbImage, byteImage, nrl, nrh, ncl, nch);
+    // convert_rgb8_to_byte(rgbImage, byteImage, nrl, nrh, ncl, nch);
     harrisImage = harris(byteImage, filter, size, lambda, nrl, nrh, ncl, nch);
     convert_dmatrix_bmatrix(harrisImage, byteImage, nrl, nrh, ncl, nch);
 
     while (true)
     {
         gettimeofday(&t1,0);
-        
-        
+
         cap.read(image);
         resize(image,imageResized,Size(896,504));
         
         // DEBUT TRAITEMENT
+        #ifdef STABILISATION_MODE
 
-        rgbImage2=convertMatToRGB8(imageResized, &nrl, &nrh, &ncl, &nch);
-        convert_rgb8_to_byte(rgbImage2, byteImage2, nrl, nrh, ncl, nch);
+        byteImage2=convertMatToByte(imageResized, &nrl, &nrh, &ncl, &nch);
+        // convert_rgb8_to_byte(rgbImage2, byteImage2, nrl, nrh, ncl, nch);
+      
         harrisImage2 = harris(byteImage2, filter, size, lambda, nrl, nrh, ncl, nch);
-        convert_dmatrix_bmatrix(harrisImage2, byteImage2, nrl, nrh, ncl, nch);
-
-
+        convert_dmatrix_bmatrix(harrisImage2, byteImage2, nrl, nrh, ncl, nch);        
         Vecteur (byteImage, byteImage2, &x, &y, nrl, nrh, ncl, nch);
         // printf("x = %d, y = %d.\n",x,y);
 
         byteImage=byteImage2;
+        #endif
+        #ifndef STABILISATION_MODE
+        rgbImage=convertMatToRGB8(imageResized, &nrl, &nrh, &ncl, &nch);
+        getBarycenterColor(rgbImage,nrl,nrh,ncl,nch,&x,&y);
 
+        #endif
+
+       
         //FIN TRAITEMENT 
 
         gettimeofday(&t2,0);
@@ -107,20 +111,20 @@ int main(){
         // sprintf (name, "FPS : %f", 1/((double)ms/1000));
         sprintf (fpsDisplay, "FPS : %f     x: %d y:%d", fps,x,y);
 
-        putText(image, fpsDisplay, cv::Point(30,30), FONT_HERSHEY_COMPLEX, 1.0, cv::Scalar(20,20,25), 1, LINE_AA);
-        imshow("Camera", image);
+        putText(imageResized, fpsDisplay, cv::Point(30,30), FONT_HERSHEY_COMPLEX, 1.0, cv::Scalar(20,20,25), 1, LINE_AA);
+        imshow("Camera", imageResized);
 
         if(waitKey(33) == 27) break;
     }
 
-        free_rgb8matrix(rgbImage, nrl, nrh, ncl, nch);
-        free_rgb8matrix(rgbImage2, nrl, nrh, ncl, nch);
+        // free_rgb8matrix(rgbImage, nrl, nrh, ncl, nch);
+        // free_rgb8matrix(rgbImage2, nrl, nrh, ncl, nch);
 
-        free_bmatrix  (byteImage, nrl, nrh, ncl, nch);
-        free_bmatrix  (byteImage2, nrl, nrh, ncl, nch);
+        // free_bmatrix  (byteImage, nrl, nrh, ncl, nch);
+        // free_bmatrix  (byteImage2, nrl, nrh, ncl, nch);
 
-        free_dmatrix(harrisImage, nrl, nrh, ncl, nch);
-        free_dmatrix(harrisImage2, nrl, nrh, ncl, nch);
+        // free_dmatrix(harrisImage, nrl, nrh, ncl, nch);
+        // free_dmatrix(harrisImage2, nrl, nrh, ncl, nch);
             
     return 0;
 }

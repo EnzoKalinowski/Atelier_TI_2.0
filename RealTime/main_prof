@@ -1,0 +1,452 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+ 78.62      4.67     4.67 35518824     0.00     0.00  Vecteur(unsigned char**, unsigned char**, int*, int*, long, long, long, long)
+ 11.28      5.34     0.67       17    39.41    53.87  harris(unsigned char**, double**, int, float, long, long, long, long)
+  2.86      5.51     0.17       17    10.00    10.00  sobel(unsigned char**, double**, double**, long, long, long, long)
+  1.35      5.59     0.08 144958524     0.00     0.00  __libc_csu_fini
+  1.35      5.67     0.08                             atexit
+  1.01      5.73     0.06                             norm_gradient(double**, double**, double**, long, long, long, long)
+  0.84      5.78     0.05  7653181     0.00     0.00  __libc_csu_init
+  0.51      5.81     0.03       17     1.76   139.63  convertMatToByte(cv::Mat, long*, long*, long*, long*)
+  0.51      5.84     0.03       17     1.76     4.71  getBarycenterColor(rgb8**, long, long, long, long, int*, int*)
+  0.51      5.87     0.03                             gradient_direction_interest_points(unsigned char**, double**, int, long, long, long, long)
+  0.51      5.90     0.03                             isOfColor(rgb8, unsigned char, unsigned char, unsigned char)
+  0.34      5.92     0.02        1    20.00    20.00  cvflann::anyimpl::big_any_policy<cvflann::anyimpl::empty_any>::~big_any_policy()
+  0.17      5.93     0.01 17759412     0.00     0.00  cv::Matx<unsigned char, 3, 1>::Matx(unsigned char const*)
+  0.17      5.94     0.01                             nrerror
+  0.00      5.94     0.00  8879722     0.00     0.00  cvflann::anyimpl::big_any_policy<cvflann::anyimpl::empty_any>::~big_any_policy()
+  0.00      5.94     0.00      149     0.00     0.00  cv::_InputArray::_InputArray(cv::Mat const&)
+  0.00      5.94     0.00      102     0.00     0.00  cv::Mat::Mat()
+  0.00      5.94     0.00       83     0.00     0.00  cv::_OutputArray::~_OutputArray()
+  0.00      5.94     0.00       83     0.00     0.00  cvflann::anyimpl::typed_base_any_policy<cvflann::anyimpl::empty_any>::~typed_base_any_policy()
+  0.00      5.94     0.00       50     0.00     0.00  cv::_OutputArray::_OutputArray()
+  0.00      5.94     0.00       36     0.00     0.00  cvflann::anyimpl::base_any_policy::~base_any_policy()
+  0.00      5.94     0.00       36     0.00     0.00  cvflann::anyimpl::base_any_policy::~base_any_policy()
+  0.00      5.94     0.00       33     0.00     0.00  cv::_OutputArray::_OutputArray(cv::Mat&)
+  0.00      5.94     0.00       20     0.00     0.00  cv::Mat::release()
+  0.00      5.94     0.00       20     0.00     0.00  cv::MatStep::operator[](int)
+  0.00      5.94     0.00       20     0.00     0.00  cvflann::anyimpl::operator<<(std::ostream&, cvflann::anyimpl::empty_any const&)
+  0.00      5.94     0.00       18     0.00     0.00  cv::Mat::Mat(cv::Mat const&)
+  0.00      5.94     0.00       17     0.00     0.00  cvflann::anyimpl::typed_base_any_policy<cvflann::anyimpl::empty_any>::~typed_base_any_policy()
+  0.00      5.94     0.00       16     0.00     0.00  diff_ms(timeval, timeval)
+  0.00      5.94     0.00       16     0.00     0.00  cv::_InputOutputArray::_InputOutputArray(cv::Mat&)
+  0.00      5.94     0.00       16     0.00     0.00  cv::Point_<int>::Point_(int, int)
+  0.00      5.94     0.00       16     0.00     0.00  cvflann::anyimpl::small_any_policy<char const*>::~small_any_policy()
+  0.00      5.94     0.00       16     0.00     0.00  cvflann::anyimpl::small_any_policy<int>::~small_any_policy()
+  0.00      5.94     0.00       16     0.00     0.00  cvflann::anyimpl::typed_base_any_policy<char const*>::~typed_base_any_policy()
+  0.00      5.94     0.00        9     0.00     0.00  cvflann::anyimpl::big_any_policy<cvflann::flann_algorithm_t>::print(std::ostream&, void* const*)
+  0.00      5.94     0.00        1     0.00   323.93  convertMatToRGB8(cv::Mat, long*, long*, long*, long*)
+  0.00      5.94     0.00        1     0.00     0.00  create_gaussian_filter(float, int)
+  0.00      5.94     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00      5.94     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00      5.94     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00      5.94     0.00        1     0.00     0.00  cv::_InputArray::_InputArray()
+  0.00      5.94     0.00        1     0.00     0.00  cv::Vec<unsigned char, 3>::operator[](int)
+  0.00      5.94     0.00        1     0.00     0.00  cvflann::anyimpl::big_any_policy<cvflann::flann_algorithm_t>::~big_any_policy()
+  0.00      5.94     0.00        1     0.00     0.00  cvflann::anyimpl::big_any_policy<cvflann::flann_centers_init_t>::~big_any_policy()
+  0.00      5.94     0.00        1     0.00     0.00  cvflann::anyimpl::big_any_policy<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::~big_any_policy()
+  0.00      5.94     0.00        1     0.00     0.00  cvflann::anyimpl::small_any_policy<char const*>::~small_any_policy()
+  0.00      5.94     0.00        1     0.00     0.00  cvflann::anyimpl::small_any_policy<bool>::~small_any_policy()
+  0.00      5.94     0.00        1     0.00     0.00  cvflann::anyimpl::small_any_policy<float>::~small_any_policy()
+  0.00      5.94     0.00        1     0.00     0.00  cvflann::anyimpl::small_any_policy<int>::~small_any_policy()
+  0.00      5.94     0.00        1     0.00     0.00  cvflann::anyimpl::small_any_policy<unsigned int>::~small_any_policy()
+  0.00      5.94     0.00        1     0.00     0.00  __gnu_cxx::__promote_2<double, int, __gnu_cxx::__promote<double, std::__is_integer<double>::__value>::__type, __gnu_cxx::__promote<int, std::__is_integer<int>::__value>::__type>::__type std::pow<double, int>(double, int)
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 2 byte(s) for 0.17% of 5.94 seconds
+
+index % time    self  children    called     name
+                0.16    0.00 1226561/35518824     convertMatToRGB8(cv::Mat, long*, long*, long*, long*) [7]
+                1.17    0.00 8879706/35518824     cv::Matx<unsigned char, 3, 1>::Matx(unsigned char const*) [5]
+                1.33    0.00 10106267/35518824     convertMatToByte(cv::Mat, long*, long*, long*, long*) [3]
+                2.01    0.00 15306290/35518824     isOfColor(rgb8, unsigned char, unsigned char, unsigned char) [4]
+[1]     78.6    4.67    0.00 35518824         Vecteur(unsigned char**, unsigned char**, int*, int*, long, long, long, long) [1]
+-----------------------------------------------
+                                                 <spontaneous>
+[2]     62.2    0.00    3.69                 main [2]
+                0.03    2.34      17/17          convertMatToByte(cv::Mat, long*, long*, long*, long*) [3]
+                0.67    0.25      17/17          harris(unsigned char**, double**, int, float, long, long, long, long) [6]
+                0.00    0.32       1/1           convertMatToRGB8(cv::Mat, long*, long*, long*, long*) [7]
+                0.03    0.05      17/17          getBarycenterColor(rgb8**, long, long, long, long, int*, int*) [11]
+                0.00    0.00       1/1           create_gaussian_filter(float, int) [18]
+                0.00    0.00      86/119         cv::Mat::Mat() <cycle 1> [980]
+                0.00    0.00      33/33          cv::_OutputArray::_OutputArray(cv::Mat&) [986]
+                0.00    0.00      33/83          cv::_OutputArray::~_OutputArray() [981]
+                0.00    0.00      20/20          cv::Mat::release() [987]
+                0.00    0.00      18/18          cv::Mat::Mat(cv::Mat const&) [990]
+                0.00    0.00      17/17          cvflann::anyimpl::typed_base_any_policy<cvflann::anyimpl::empty_any>::~typed_base_any_policy() [991]
+                0.00    0.00      16/16          diff_ms(timeval, timeval) [992]
+                0.00    0.00      16/16          cvflann::anyimpl::typed_base_any_policy<char const*>::~typed_base_any_policy() [997]
+                0.00    0.00      16/8879722     cvflann::anyimpl::big_any_policy<cvflann::anyimpl::empty_any>::~big_any_policy() [978]
+                0.00    0.00      16/16          cv::Point_<int>::Point_(int, int) [994]
+-----------------------------------------------
+                0.03    2.34      17/17          main [2]
+[3]     40.0    0.03    2.34      17         convertMatToByte(cv::Mat, long*, long*, long*, long*) [3]
+                1.33    0.00 10106267/35518824     Vecteur(unsigned char**, unsigned char**, int*, int*, long, long, long, long) [1]
+                0.01    1.01 15306290/17759412     cv::Matx<unsigned char, 3, 1>::Matx(unsigned char const*) [5]
+                0.00    0.00 7653145/8879722     cvflann::anyimpl::big_any_policy<cvflann::anyimpl::empty_any>::~big_any_policy() [978]
+-----------------------------------------------
+                                                 <spontaneous>
+[4]     34.4    0.03    2.01                 isOfColor(rgb8, unsigned char, unsigned char, unsigned char) [4]
+                2.01    0.00 15306290/35518824     Vecteur(unsigned char**, unsigned char**, int*, int*, long, long, long, long) [1]
+-----------------------------------------------
+                0.00    0.16 2453122/17759412     convertMatToRGB8(cv::Mat, long*, long*, long*, long*) [7]
+                0.01    1.01 15306290/17759412     convertMatToByte(cv::Mat, long*, long*, long*, long*) [3]
+[5]     19.8    0.01    1.17 17759412         cv::Matx<unsigned char, 3, 1>::Matx(unsigned char const*) [5]
+                1.17    0.00 8879706/35518824     Vecteur(unsigned char**, unsigned char**, int*, int*, long, long, long, long) [1]
+-----------------------------------------------
+                0.67    0.25      17/17          main [2]
+[6]     15.4    0.67    0.25      17         harris(unsigned char**, double**, int, float, long, long, long, long) [6]
+                0.17    0.00      17/17          sobel(unsigned char**, double**, double**, long, long, long, long) [8]
+                0.08    0.00 137329128/144958524     __libc_csu_fini [10]
+-----------------------------------------------
+                0.00    0.32       1/1           main [2]
+[7]      5.5    0.00    0.32       1         convertMatToRGB8(cv::Mat, long*, long*, long*, long*) [7]
+                0.00    0.16 2453122/17759412     cv::Matx<unsigned char, 3, 1>::Matx(unsigned char const*) [5]
+                0.16    0.00 1226561/35518824     Vecteur(unsigned char**, unsigned char**, int*, int*, long, long, long, long) [1]
+                0.00    0.00 1226561/8879722     cvflann::anyimpl::big_any_policy<cvflann::anyimpl::empty_any>::~big_any_policy() [978]
+-----------------------------------------------
+                0.17    0.00      17/17          harris(unsigned char**, double**, int, float, long, long, long, long) [6]
+[8]      2.9    0.17    0.00      17         sobel(unsigned char**, double**, double**, long, long, long, long) [8]
+-----------------------------------------------
+                                                 <spontaneous>
+[9]      1.3    0.08    0.00                 atexit [9]
+-----------------------------------------------
+                0.00    0.00 7629396/144958524     gradient_direction_interest_points(unsigned char**, double**, int, long, long, long, long) [14]
+                0.08    0.00 137329128/144958524     harris(unsigned char**, double**, int, float, long, long, long, long) [6]
+[10]     1.3    0.08    0.00 144958524         __libc_csu_fini [10]
+-----------------------------------------------
+                0.03    0.05      17/17          main [2]
+[11]     1.3    0.03    0.05      17         getBarycenterColor(rgb8**, long, long, long, long, int*, int*) [11]
+                0.05    0.00 7653145/7653181     __libc_csu_init [13]
+-----------------------------------------------
+                                                 <spontaneous>
+[12]     1.0    0.06    0.00                 norm_gradient(double**, double**, double**, long, long, long, long) [12]
+-----------------------------------------------
+                0.00    0.00      36/7653181     create_gaussian_filter(float, int) [18]
+                0.05    0.00 7653145/7653181     getBarycenterColor(rgb8**, long, long, long, long, int*, int*) [11]
+[13]     0.8    0.05    0.00 7653181         __libc_csu_init [13]
+                0.00    0.00       1/1           __static_initialization_and_destruction_0(int, int) [1001]
+-----------------------------------------------
+                                                 <spontaneous>
+[14]     0.6    0.03    0.00                 gradient_direction_interest_points(unsigned char**, double**, int, long, long, long, long) [14]
+                0.00    0.00 7629396/144958524     __libc_csu_fini [10]
+-----------------------------------------------
+                0.02    0.00       1/1           cv::Scalar_<double>::Scalar_(double, double, double, double) [16]
+[15]     0.3    0.02    0.00       1         cvflann::anyimpl::big_any_policy<cvflann::anyimpl::empty_any>::~big_any_policy() [15]
+                0.00    0.00       1/9           cvflann::anyimpl::big_any_policy<cvflann::flann_algorithm_t>::print(std::ostream&, void* const*) [998]
+-----------------------------------------------
+                                                 <spontaneous>
+[16]     0.3    0.00    0.02                 cv::Scalar_<double>::Scalar_(double, double, double, double) [16]
+                0.02    0.00       1/1           cvflann::anyimpl::big_any_policy<cvflann::anyimpl::empty_any>::~big_any_policy() [15]
+-----------------------------------------------
+                                                 <spontaneous>
+[17]     0.2    0.01    0.00                 nrerror [17]
+-----------------------------------------------
+                0.00    0.00       1/1           main [2]
+[18]     0.0    0.00    0.00       1         create_gaussian_filter(float, int) [18]
+                0.00    0.00      36/7653181     __libc_csu_init [13]
+-----------------------------------------------
+[19]     0.0    0.00    0.00     119+132     <cycle 1 as a whole> [19]
+                0.00    0.00     102             cv::Mat::Mat() <cycle 1> [980]
+                0.00    0.00      83             cvflann::anyimpl::typed_base_any_policy<cvflann::anyimpl::empty_any>::~typed_base_any_policy() <cycle 1> [982]
+                0.00    0.00      50             cv::_OutputArray::_OutputArray() <cycle 1> [983]
+                0.00    0.00      16             cv::_InputOutputArray::_InputOutputArray(cv::Mat&) <cycle 1> [993]
+-----------------------------------------------
+                0.00    0.00      16/8879722     main [2]
+                0.00    0.00 1226561/8879722     convertMatToRGB8(cv::Mat, long*, long*, long*, long*) [7]
+                0.00    0.00 7653145/8879722     convertMatToByte(cv::Mat, long*, long*, long*, long*) [3]
+[978]    0.0    0.00    0.00 8879722         cvflann::anyimpl::big_any_policy<cvflann::anyimpl::empty_any>::~big_any_policy() [978]
+-----------------------------------------------
+                0.00    0.00      16/149         cv::_InputOutputArray::_InputOutputArray(cv::Mat&) <cycle 1> [993]
+                0.00    0.00      33/149         cv::_OutputArray::~_OutputArray() [981]
+                0.00    0.00      50/149         cv::_OutputArray::_OutputArray(cv::Mat&) [986]
+                0.00    0.00      50/149         cv::Mat::Mat() <cycle 1> [980]
+[979]    0.0    0.00    0.00     149         cv::_InputArray::_InputArray(cv::Mat const&) [979]
+                0.00    0.00       1/1           __static_initialization_and_destruction_0(int, int) [999]
+-----------------------------------------------
+                                  16             cvflann::anyimpl::typed_base_any_policy<cvflann::anyimpl::empty_any>::~typed_base_any_policy() <cycle 1> [982]
+                0.00    0.00      86/119         main [2]
+[980]    0.0    0.00    0.00     102         cv::Mat::Mat() <cycle 1> [980]
+                0.00    0.00      50/149         cv::_InputArray::_InputArray(cv::Mat const&) [979]
+                0.00    0.00      50/83          cv::_OutputArray::~_OutputArray() [981]
+                                  34             cv::_OutputArray::_OutputArray() <cycle 1> [983]
+                                  16             cv::_InputOutputArray::_InputOutputArray(cv::Mat&) <cycle 1> [993]
+-----------------------------------------------
+                0.00    0.00      33/83          main [2]
+                0.00    0.00      50/83          cv::Mat::Mat() <cycle 1> [980]
+[981]    0.0    0.00    0.00      83         cv::_OutputArray::~_OutputArray() [981]
+                0.00    0.00      33/149         cv::_InputArray::_InputArray(cv::Mat const&) [979]
+-----------------------------------------------
+                                  50             cv::_OutputArray::_OutputArray() <cycle 1> [983]
+                0.00    0.00      33/119         cv::_OutputArray::_OutputArray(cv::Mat&) [986]
+[982]    0.0    0.00    0.00      83         cvflann::anyimpl::typed_base_any_policy<cvflann::anyimpl::empty_any>::~typed_base_any_policy() <cycle 1> [982]
+                                  16             cv::Mat::Mat() <cycle 1> [980]
+-----------------------------------------------
+                                  16             cv::_InputOutputArray::_InputOutputArray(cv::Mat&) <cycle 1> [993]
+                                  34             cv::Mat::Mat() <cycle 1> [980]
+[983]    0.0    0.00    0.00      50         cv::_OutputArray::_OutputArray() <cycle 1> [983]
+                                  50             cvflann::anyimpl::typed_base_any_policy<cvflann::anyimpl::empty_any>::~typed_base_any_policy() <cycle 1> [982]
+-----------------------------------------------
+                0.00    0.00      18/36          cv::Mat::~Mat() [1106]
+                0.00    0.00      18/36          cv::Mat::release() [987]
+[984]    0.0    0.00    0.00      36         cvflann::anyimpl::base_any_policy::~base_any_policy() [984]
+-----------------------------------------------
+                0.00    0.00      18/36          cv::Mat::~Mat() [1106]
+                0.00    0.00      18/36          cv::Mat::release() [987]
+[985]    0.0    0.00    0.00      36         cvflann::anyimpl::base_any_policy::~base_any_policy() [985]
+-----------------------------------------------
+                0.00    0.00      33/33          main [2]
+[986]    0.0    0.00    0.00      33         cv::_OutputArray::_OutputArray(cv::Mat&) [986]
+                0.00    0.00      50/149         cv::_InputArray::_InputArray(cv::Mat const&) [979]
+                0.00    0.00      33/119         cvflann::anyimpl::typed_base_any_policy<cvflann::anyimpl::empty_any>::~typed_base_any_policy() <cycle 1> [982]
+-----------------------------------------------
+                                  20             cv::Mat::release() [987]
+                0.00    0.00      20/20          main [2]
+[987]    0.0    0.00    0.00      20+20      cv::Mat::release() [987]
+                0.00    0.00      18/36          cvflann::anyimpl::base_any_policy::~base_any_policy() [985]
+                0.00    0.00      18/36          cvflann::anyimpl::base_any_policy::~base_any_policy() [984]
+                                  20             cv::Mat::release() [987]
+-----------------------------------------------
+                0.00    0.00      20/20          cv::Mat::Mat(cv::Mat const&) [990]
+[988]    0.0    0.00    0.00      20         cv::MatStep::operator[](int) [988]
+-----------------------------------------------
+                0.00    0.00      20/20          cv::Mat::Mat(cv::Mat const&) [990]
+[989]    0.0    0.00    0.00      20         cvflann::anyimpl::operator<<(std::ostream&, cvflann::anyimpl::empty_any const&) [989]
+-----------------------------------------------
+                0.00    0.00      18/18          main [2]
+[990]    0.0    0.00    0.00      18         cv::Mat::Mat(cv::Mat const&) [990]
+                0.00    0.00      20/20          cv::MatStep::operator[](int) [988]
+                0.00    0.00      20/20          cvflann::anyimpl::operator<<(std::ostream&, cvflann::anyimpl::empty_any const&) [989]
+-----------------------------------------------
+                0.00    0.00      17/17          main [2]
+[991]    0.0    0.00    0.00      17         cvflann::anyimpl::typed_base_any_policy<cvflann::anyimpl::empty_any>::~typed_base_any_policy() [991]
+-----------------------------------------------
+                0.00    0.00      16/16          main [2]
+[992]    0.0    0.00    0.00      16         diff_ms(timeval, timeval) [992]
+-----------------------------------------------
+                                  16             cv::Mat::Mat() <cycle 1> [980]
+[993]    0.0    0.00    0.00      16         cv::_InputOutputArray::_InputOutputArray(cv::Mat&) <cycle 1> [993]
+                0.00    0.00      16/149         cv::_InputArray::_InputArray(cv::Mat const&) [979]
+                                  16             cv::_OutputArray::_OutputArray() <cycle 1> [983]
+-----------------------------------------------
+                0.00    0.00      16/16          main [2]
+[994]    0.0    0.00    0.00      16         cv::Point_<int>::Point_(int, int) [994]
+-----------------------------------------------
+                0.00    0.00      16/16          cvflann::anyimpl::typed_base_any_policy<char const*>::~typed_base_any_policy() [1198]
+[995]    0.0    0.00    0.00      16         cvflann::anyimpl::small_any_policy<char const*>::~small_any_policy() [995]
+-----------------------------------------------
+                0.00    0.00      16/16          cvflann::anyimpl::small_any_policy<char const*>::~small_any_policy() [1007]
+[996]    0.0    0.00    0.00      16         cvflann::anyimpl::small_any_policy<int>::~small_any_policy() [996]
+-----------------------------------------------
+                0.00    0.00      16/16          main [2]
+[997]    0.0    0.00    0.00      16         cvflann::anyimpl::typed_base_any_policy<char const*>::~typed_base_any_policy() [997]
+-----------------------------------------------
+                0.00    0.00       1/9           cvflann::anyimpl::big_any_policy<cvflann::anyimpl::empty_any>::~big_any_policy() [15]
+                0.00    0.00       1/9           cvflann::anyimpl::small_any_policy<char const*>::~small_any_policy() [1007]
+                0.00    0.00       1/9           cvflann::anyimpl::small_any_policy<int>::~small_any_policy() [1010]
+                0.00    0.00       1/9           cvflann::anyimpl::small_any_policy<float>::~small_any_policy() [1009]
+                0.00    0.00       1/9           cvflann::anyimpl::typed_base_any_policy<cvflann::flann_algorithm_t>::~typed_base_any_policy() [1187]
+                0.00    0.00       1/9           cvflann::anyimpl::big_any_policy<cvflann::flann_algorithm_t>::~big_any_policy() [1004]
+                0.00    0.00       1/9           cvflann::anyimpl::big_any_policy<cvflann::flann_centers_init_t>::~big_any_policy() [1005]
+                0.00    0.00       1/9           cvflann::anyimpl::small_any_policy<unsigned int>::~small_any_policy() [1011]
+                0.00    0.00       1/9           cvflann::anyimpl::small_any_policy<unsigned int>::static_delete(void**) [1174]
+[998]    0.0    0.00    0.00       9         cvflann::anyimpl::big_any_policy<cvflann::flann_algorithm_t>::print(std::ostream&, void* const*) [998]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::_InputArray::_InputArray(cv::Mat const&) [979]
+[999]    0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [999]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::Vec<unsigned char, 3>::operator[](int) [1003]
+[1000]   0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [1000]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [13]
+[1001]   0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [1001]
+-----------------------------------------------
+                0.00    0.00       1/1           etext [275]
+[1002]   0.0    0.00    0.00       1         cv::_InputArray::_InputArray() [1002]
+-----------------------------------------------
+                0.00    0.00       1/1           etext [275]
+[1003]   0.0    0.00    0.00       1         cv::Vec<unsigned char, 3>::operator[](int) [1003]
+                0.00    0.00       1/1           __static_initialization_and_destruction_0(int, int) [1000]
+-----------------------------------------------
+                0.00    0.00       1/1           cvflann::anyimpl::typed_base_any_policy<cvflann::flann_centers_init_t>::~typed_base_any_policy() [1190]
+[1004]   0.0    0.00    0.00       1         cvflann::anyimpl::big_any_policy<cvflann::flann_algorithm_t>::~big_any_policy() [1004]
+                0.00    0.00       1/9           cvflann::anyimpl::big_any_policy<cvflann::flann_algorithm_t>::print(std::ostream&, void* const*) [998]
+-----------------------------------------------
+                0.00    0.00       1/1           cvflann::anyimpl::typed_base_any_policy<unsigned int>::~typed_base_any_policy() [1213]
+[1005]   0.0    0.00    0.00       1         cvflann::anyimpl::big_any_policy<cvflann::flann_centers_init_t>::~big_any_policy() [1005]
+                0.00    0.00       1/9           cvflann::anyimpl::big_any_policy<cvflann::flann_algorithm_t>::print(std::ostream&, void* const*) [998]
+-----------------------------------------------
+                0.00    0.00       1/1           cvflann::anyimpl::small_any_policy<unsigned int>::clone(void* const*, void**) [1177]
+[1006]   0.0    0.00    0.00       1         cvflann::anyimpl::big_any_policy<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::~big_any_policy() [1006]
+-----------------------------------------------
+                0.00    0.00       1/1           cvflann::anyimpl::typed_base_any_policy<int>::~typed_base_any_policy() [1210]
+[1007]   0.0    0.00    0.00       1         cvflann::anyimpl::small_any_policy<char const*>::~small_any_policy() [1007]
+                0.00    0.00      16/16          cvflann::anyimpl::small_any_policy<int>::~small_any_policy() [996]
+                0.00    0.00       1/9           cvflann::anyimpl::big_any_policy<cvflann::flann_algorithm_t>::print(std::ostream&, void* const*) [998]
+-----------------------------------------------
+                0.00    0.00       1/1           cvflann::anyimpl::typed_base_any_policy<cvflann::flann_algorithm_t>::~typed_base_any_policy() [1186]
+[1008]   0.0    0.00    0.00       1         cvflann::anyimpl::small_any_policy<bool>::~small_any_policy() [1008]
+-----------------------------------------------
+                0.00    0.00       1/1           cvflann::anyimpl::typed_base_any_policy<bool>::~typed_base_any_policy() [1201]
+[1009]   0.0    0.00    0.00       1         cvflann::anyimpl::small_any_policy<float>::~small_any_policy() [1009]
+                0.00    0.00       1/9           cvflann::anyimpl::big_any_policy<cvflann::flann_algorithm_t>::print(std::ostream&, void* const*) [998]
+-----------------------------------------------
+                0.00    0.00       1/1           cvflann::anyimpl::typed_base_any_policy<float>::~typed_base_any_policy() [1205]
+[1010]   0.0    0.00    0.00       1         cvflann::anyimpl::small_any_policy<int>::~small_any_policy() [1010]
+                0.00    0.00       1/9           cvflann::anyimpl::big_any_policy<cvflann::flann_algorithm_t>::print(std::ostream&, void* const*) [998]
+-----------------------------------------------
+                0.00    0.00       1/1           cvflann::anyimpl::typed_base_any_policy<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::~typed_base_any_policy() [1194]
+[1011]   0.0    0.00    0.00       1         cvflann::anyimpl::small_any_policy<unsigned int>::~small_any_policy() [1011]
+                0.00    0.00       1/9           cvflann::anyimpl::big_any_policy<cvflann::flann_algorithm_t>::print(std::ostream&, void* const*) [998]
+-----------------------------------------------
+                0.00    0.00       1/1           etext [275]
+[1012]   0.0    0.00    0.00       1         __gnu_cxx::__promote_2<double, int, __gnu_cxx::__promote<double, std::__is_integer<double>::__value>::__type, __gnu_cxx::__promote<int, std::__is_integer<int>::__value>::__type>::__type std::pow<double, int>(double, int) [1012]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+  [12] norm_gradient(double**, double**, double**, long, long, long, long) [981] cv::_OutputArray::~_OutputArray() [995] cvflann::anyimpl::small_any_policy<char const*>::~small_any_policy()
+   [3] convertMatToByte(cv::Mat, long*, long*, long*, long*) [993] cv::_InputOutputArray::_InputOutputArray(cv::Mat&) [1008] cvflann::anyimpl::small_any_policy<bool>::~small_any_policy()
+   [7] convertMatToRGB8(cv::Mat, long*, long*, long*, long*) [987] cv::Mat::release() [1009] cvflann::anyimpl::small_any_policy<float>::~small_any_policy()
+  [11] getBarycenterColor(rgb8**, long, long, long, long, int*, int*) [990] cv::Mat::Mat(cv::Mat const&) [1010] cvflann::anyimpl::small_any_policy<int>::~small_any_policy()
+  [18] create_gaussian_filter(float, int) [980] cv::Mat::Mat() [996] cvflann::anyimpl::small_any_policy<int>::~small_any_policy()
+  [14] gradient_direction_interest_points(unsigned char**, double**, int, long, long, long, long) [1003] cv::Vec<unsigned char, 3>::operator[](int) [1011] cvflann::anyimpl::small_any_policy<unsigned int>::~small_any_policy()
+ [999] __static_initialization_and_destruction_0(int, int) (main.cpp) [5] cv::Matx<unsigned char, 3, 1>::Matx(unsigned char const*) [991] cvflann::anyimpl::typed_base_any_policy<cvflann::anyimpl::empty_any>::~typed_base_any_policy()
+ [1000] __static_initialization_and_destruction_0(int, int) (Preprocessing.cpp) [994] cv::Point_<int>::Point_(int, int) [982] cvflann::anyimpl::typed_base_any_policy<cvflann::anyimpl::empty_any>::~typed_base_any_policy()
+ [1001] __static_initialization_and_destruction_0(int, int) (Tracking.cpp) [988] cv::MatStep::operator[](int) [997] cvflann::anyimpl::typed_base_any_policy<char const*>::~typed_base_any_policy()
+   [8] sobel(unsigned char**, double**, double**, long, long, long, long) [15] cvflann::anyimpl::big_any_policy<cvflann::anyimpl::empty_any>::~big_any_policy() [989] cvflann::anyimpl::operator<<(std::ostream&, cvflann::anyimpl::empty_any const&)
+   [6] harris(unsigned char**, double**, int, float, long, long, long, long) [978] cvflann::anyimpl::big_any_policy<cvflann::anyimpl::empty_any>::~big_any_policy() [1012] __gnu_cxx::__promote_2<double, int, __gnu_cxx::__promote<double, std::__is_integer<double>::__value>::__type, __gnu_cxx::__promote<int, std::__is_integer<int>::__value>::__type>::__type std::pow<double, int>(double, int)
+   [1] Vecteur(unsigned char**, unsigned char**, int*, int*, long, long, long, long) [998] cvflann::anyimpl::big_any_policy<cvflann::flann_algorithm_t>::print(std::ostream&, void* const*) [10] __libc_csu_fini
+ [992] diff_ms(timeval, timeval) [1004] cvflann::anyimpl::big_any_policy<cvflann::flann_algorithm_t>::~big_any_policy() [13] __libc_csu_init
+   [4] isOfColor(rgb8, unsigned char, unsigned char, unsigned char) [1005] cvflann::anyimpl::big_any_policy<cvflann::flann_centers_init_t>::~big_any_policy() [9] atexit
+ [1002] cv::_InputArray::_InputArray() [1006] cvflann::anyimpl::big_any_policy<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::~big_any_policy() [17] nrerror
+ [979] cv::_InputArray::_InputArray(cv::Mat const&) [984] cvflann::anyimpl::base_any_policy::~base_any_policy() [19] <cycle 1>
+ [986] cv::_OutputArray::_OutputArray(cv::Mat&) [985] cvflann::anyimpl::base_any_policy::~base_any_policy()
+ [983] cv::_OutputArray::_OutputArray() [1007] cvflann::anyimpl::small_any_policy<char const*>::~small_any_policy()

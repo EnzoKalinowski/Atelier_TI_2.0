@@ -12,11 +12,11 @@ INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 CPPFLAGS ?= $(INC_FLAGS) -MMD -MP
 
 main: create_folders $(OBJS)
-	g++ $(OBJS) -o $(BIN_DIR)/main `pkg-config --cflags --libs opencv` -g -Wall
+	g++ $(OBJS) -o $(BIN_DIR)/main `pkg-config --cflags --libs opencv` -g -Wall -pg
 
 $(BUILD_DIR)/%.cpp.o: %.cpp
 	@mkdir -p $(dir $@)
-	g++ $(CPPFLAGS) -c $< -o $@ `pkg-config --cflags --libs opencv` -g -Wall
+	g++ $(CPPFLAGS) -pg -c $< -o $@ `pkg-config --cflags --libs opencv` -g -Wall 
 
 create_folders:
 	@mkdir -p $(BIN_DIR)
