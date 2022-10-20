@@ -1,0 +1,7 @@
+.vscode
+RealTime/bin/main
+RealTime/build/*
+TestColor/bin/main
+TestColor/build/*
+TestStab/bin/main
+TestStab/build/*
