@@ -1,5 +1,15 @@
 #include "Preprocessing.h"
 
+/**
+ * @brief function to convert rgb representation to hue saturation value (hsv) representation
+ *
+ * @param _r red part of the pxl
+ * @param _g green part of the pxl
+ * @param _b blue part of the pxl
+ * @param h hue param
+ * @param s saturation
+ * @param v value
+ */
 void RGBtoHSV(byte _r, byte _g, byte _b, double *h, double *s, double *v){
     double r = (double) _r / 255;
     double g = (double) _g / 255;
@@ -33,6 +43,19 @@ void RGBtoHSV(byte _r, byte _g, byte _b, double *h, double *s, double *v){
     *v = cmax;
 }
 
+/**
+ * @brief
+ *
+ * @param I
+ * @param r
+ * @param g
+ * @param b
+ * @param nrl
+ * @param nrh
+ * @param ncl
+ * @param nch
+ * @return
+ */
 byte** pickColorHSV(rgb8 **I, byte r, byte g, byte b, long nrl, long nrh, long ncl, long nch){
     double _h, _s, _v, h, s, v;
     RGBtoHSV(r, g, b, &_h, &_s, &_v);
@@ -55,6 +78,19 @@ byte** pickColorHSV(rgb8 **I, byte r, byte g, byte b, long nrl, long nrh, long n
     return res;
 }
 
+/**
+ * @brief
+ *
+ * @param I
+ * @param r
+ * @param g
+ * @param b
+ * @param nrl
+ * @param nrh
+ * @param ncl
+ * @param nch
+ * @return
+ */
 byte** pickColorRGB(rgb8 **I, byte r, byte g, byte b, long nrl, long nrh, long ncl, long nch){
     byte **res = bmatrix(nrl, nrh, ncl, nch);
     rgb8 col;
@@ -86,6 +122,16 @@ byte** pickColorRGB(rgb8 **I, byte r, byte g, byte b, long nrl, long nrh, long n
     return res;
 }
 
+/**
+ * @brief converts a cv matrix to an rgb8_matrix from nrc lib
+ *
+ * @param mat cv mat
+ * @param nrl number row low (lowest index of rows)
+ * @param nrh number row high (highest index of rows)
+ * @param ncl number column low (lowest index of col)
+ * @param nch number column high (highest index of col)
+ * @return an rgb8matrix
+ */
 rgb8** convertMatToRGB8(cv::Mat mat, long *nrl, long *nrh, long *ncl, long *nch){
     int width = mat.cols;
     int height = mat.rows;
@@ -109,6 +155,17 @@ rgb8** convertMatToRGB8(cv::Mat mat, long *nrl, long *nrh, long *ncl, long *nch)
     return out;
 }
 
+/**
+ * @brief converts a cv matrix to byte matrix from nrc lib
+ *
+ * @param mat cv mat
+ * @param nrl number row low (lowest index of rows)
+ * @param nrh number row high (highest index of rows)
+ * @param ncl number column low (lowest index of col)
+ * @param nch number column high (highest index of col)
+ *
+ * @return a bmatrix
+ */
 byte** convertMatToByte(cv::Mat mat, long *nrl, long *nrh, long *ncl, long *nch){
     int width = mat.cols;
     int height = mat.rows;
@@ -132,6 +189,15 @@ byte** convertMatToByte(cv::Mat mat, long *nrl, long *nrh, long *ncl, long *nch)
     return out;
 }
 
+/**
+ * @brief return 1 if the pixel is of the good color
+ *
+ * @param pxl rgb pixel
+ * @param r red component
+ * @param g green component
+ * @param b blue component
+ * @return 1 if the pixel is more of the color chosen, 0 if not
+ */
 int isOfColor(rgb8 pxl, byte r, byte g, byte b){
     double threshold = 0.1;
     double targetTotal = r + g + b;
