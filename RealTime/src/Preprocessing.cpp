@@ -133,7 +133,7 @@ byte** convertMatToByte(cv::Mat mat, long *nrl, long *nrh, long *ncl, long *nch)
 }
 
 int isOfColor(rgb8 pxl, byte r, byte g, byte b){
-    double threshold = 0.2;
+    double threshold = 0.1;
     double targetTotal = r + g + b;
     double targetR = r / targetTotal;
     double targetG = g / targetTotal;

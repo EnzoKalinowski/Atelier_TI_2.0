@@ -10,8 +10,8 @@ void setup() {
   Serial.begin(9600);
   
   
-  servoV.attach(3);
-  servoH.attach(2);
+  servoV.attach(6);
+  servoH.attach(5);
   
 
   thetaH=90;
@@ -25,7 +25,7 @@ void loop() {
   char buf[6];
   
   if(Serial.available()>0){
-    Serial.readBytes(buf, 7);
+    Serial.readBytes(buf, 6);
     String str(buf);
     String horizontal = str.substring(0, 3);
     String vertical = str.substring(3, 6);
@@ -44,6 +44,5 @@ void loop() {
       servoV.write(v);
     }
   
-    delay(100);
   }
 }

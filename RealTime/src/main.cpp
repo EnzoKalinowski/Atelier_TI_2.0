@@ -15,8 +15,9 @@ using namespace cv;
 
 using namespace std;
 
-// #define STABILISATION_MODE
-
+#define STABILISATION_MODE
+#define TRESHOLD_MOVEMENT 30
+#define SERVO_STEP 2
 double diff_ms(timeval t1, timeval t2)
 {
     return (((t1.tv_sec - t2.tv_sec) * 1000000) +
@@ -42,6 +43,7 @@ int main(){
     timeval t1 ,t2;
     double ms;
     double fps;
+    char sendingMessage[6];
 
     //gaussian filter parameters
     float sigma = 0.3;
@@ -53,12 +55,11 @@ int main(){
     double** filter = create_gaussian_filter(sigma, size);
 
     ofstream arduino;
-
 	arduino.open( "/dev/ttyACM1");
 
     namedWindow("Camera");
  
-    VideoCapture cap(0);
+    VideoCapture cap(2);
     
 
     if (!cap.isOpened())
@@ -114,10 +115,13 @@ int main(){
 
         getBarycenterColor(rgbImage,nrl,nrh,ncl,nch,&x,&y);
 
-        circle(image, Point(x,y), 3, Scalar(0, 255, 0));
+        circle(image, Point(x,y), 3, Scalar(0, 255, 0),3);
 
-        x==((x-nrh/2)/180);
-        y==((y-nch/2)/180);
+        // x=((x-nrh/2)/180);
+        // y=((y-nch/2)/180);
+
+        x=(x-nrh/2);
+        y=(y-nch/2);
 
         #endif
         //FIN TRAITEMENT 
@@ -131,39 +135,54 @@ int main(){
         putText(image, fpsDisplay, cv::Point(30,30), FONT_HERSHEY_COMPLEX, 1.0, cv::Scalar(20,20,25), 1, LINE_AA);
         imshow("Camera", image);
 
-        if(x>50)
+        if(x>TRESHOLD_MOVEMENT)
         {
-            h+=1;
+            h+=SERVO_STEP;
         }else
         {
-            if(x<-50)
+            if(x<-TRESHOLD_MOVEMENT)
             {
-                h-=1;
+                h-=SERVO_STEP;
             }
 
         }
 
-        if(y>50)
+        if(y>TRESHOLD_MOVEMENT)
         {
-            v+=1;
+            v+=SERVO_STEP;
         }else
         {
-            if(y<-50)
+            if(y<-TRESHOLD_MOVEMENT)
             {
-                v-=1;
+                v-=SERVO_STEP;
             }
 
         }
-        // h=x;
-        // v=y;
-        arduino<< setw(3)<<h<<setw(3)<<v<<endl;
-        if(waitKey(33) == 27) break;
+        // if(0<y){
+        //     h=3;
+        // }else{
+        //     h=4;
+        // }
+        // if(0<x){
+        //     h=1;
+        // }else{
+        //     h=2;
+        // }
+
     
+        // arduino<< setw(3)<<h<<setw(3)<<v<<endl;
+        // h=10;
+        // v=90;
+        sprintf(sendingMessage,"%03d%03d",h,v);
+        arduino<< sendingMessage<<endl;
+
+        if(waitKey(33) == 27) break;
     }
     h=90;
     v=90;
-    arduino<< setw(3)<<h<<setw(3)<<v<<endl;
-
+    // arduino<< setw(3)<<h<<setw(3)<<v<<endl;
+    sprintf(sendingMessage,"%03d%03d",h,v);
+    arduino<< sendingMessage<<endl;
     arduino.close();
         // free_rgb8matrix(rgbImage, nrl, nrh, ncl, nch);
         // free_rgb8matrix(rgbImage2, nrl, nrh, ncl, nch);
