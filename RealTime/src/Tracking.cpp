@@ -241,7 +241,7 @@ void convert_dmatrix_bmatrix(double **D, byte **B, long nrl, long nrh, long ncl,
 void getBarycenterColor(rgb8 **I, long nrl, long nrh, long ncl, long nch, int *x, int *y){
 	*x = 0;
 	*y = 0;
-	int total = 0;
+	double total = 1*10e-8;
 	for(int i = nrl; i < nrh; i++){
 		for(int j = ncl; j < nch; j++){
 			if(isOfColor(I[i][j], 64, 12, 14) == 1){
@@ -252,7 +252,6 @@ void getBarycenterColor(rgb8 **I, long nrl, long nrh, long ncl, long nch, int *x
 			}
 		}
 	}
-
 	// printf("x:%d y:%d total:%d\n", *x, *y, total);
 	*x /= total;
 	*y /= total;

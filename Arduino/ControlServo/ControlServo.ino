@@ -23,25 +23,27 @@ void setup() {
 // the loop routine runs over and over again forever:
 void loop() {
   char buf[6];
-  Serial.readBytes(buf, 7);
- 
-  String str(buf);
-  String horizontal = str.substring(0, 3);
-  String vertical = str.substring(3, 6);
-
-  int h = horizontal.toInt();
-  int v = vertical.toInt();
-  Serial.print("H");
-  Serial.println(h);
-  Serial.print("V");
-  Serial.println(v);
-
-  if(h != 0){
-    servoH.write(h);
-  }
-  if(v != 0){
-    servoV.write(v);
-  }
   
-  delay(10);
+  if(Serial.available()>0){
+    Serial.readBytes(buf, 7);
+    String str(buf);
+    String horizontal = str.substring(0, 3);
+    String vertical = str.substring(3, 6);
+  
+    int h = horizontal.toInt();
+    int v = vertical.toInt();
+    Serial.print("H");
+    Serial.println(h);
+    Serial.print("V");
+    Serial.println(v);
+  
+    if(h != 0){
+      servoH.write(h);
+    }
+    if(v != 0){
+      servoV.write(v);
+    }
+  
+    delay(100);
+  }
 }

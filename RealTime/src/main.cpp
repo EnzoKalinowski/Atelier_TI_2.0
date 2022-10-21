@@ -54,21 +54,25 @@ int main(){
 
     ofstream arduino;
 
-	arduino.open( "/dev/ttyACM0");
+	arduino.open( "/dev/ttyACM1");
 
     namedWindow("Camera");
  
     VideoCapture cap(0);
+    
 
     if (!cap.isOpened())
     {
         perror("\t/!\\ CANNOT OPEN CAMERA\n");
     }
+    cap.set(CAP_PROP_FRAME_WIDTH,640);
+    cap.set(CAP_PROP_FRAME_HEIGHT,480);
+
     cap.read(image);
-    resize(image,imageResized,Size(896,504));
+    // resize(image,imageResized,Size(896,504));
 
     rgbImage=convertMatToRGB8(image, &nrl, &nrh, &ncl, &nch);
-    byteImage=convertMatToByte(imageResized, &nrl, &nrh, &ncl, &nch);
+    byteImage=convertMatToByte(image, &nrl, &nrh, &ncl, &nch);
     harrisImage = dmatrix0(nrl, nrh, ncl, nch);
 
     // convert_rgb8_to_byte(rgbImage, byteImage, nrl, nrh, ncl, nch);
@@ -90,7 +94,7 @@ int main(){
         gettimeofday(&t1,0);
 
         cap.read(image);
-        resize(image,imageResized,Size(896,504));
+        // resize(image,imageResized,Size(896,504));
         
         // DEBUT TRAITEMENT
         #ifdef STABILISATION_MODE
@@ -106,57 +110,60 @@ int main(){
         byteImage=byteImage2;
         #endif
         #ifndef STABILISATION_MODE
-        rgbImage=convertMatToRGB8(imageResized, &nrl, &nrh, &ncl, &nch);
+        rgbImage=convertMatToRGB8(image, &nrl, &nrh, &ncl, &nch);
+
         getBarycenterColor(rgbImage,nrl,nrh,ncl,nch,&x,&y);
 
+        circle(image, Point(x,y), 3, Scalar(0, 255, 0));
+
+        x==((x-nrh/2)/180);
+        y==((y-nch/2)/180);
+
         #endif
-
-       
         //FIN TRAITEMENT 
-
         gettimeofday(&t2,0);
         ms=diff_ms(t2,t1);
         fps=1.0/(ms/1000);
 
-        
         // sprintf (name, "FPS : %f", 1/((double)ms/1000));
        
-        circle(imageResized, Point(x,y), 3, Scalar(0, 255, 0));
-
-        x=x-nrh/2;
-        y=y-nch/2;
-        
         sprintf (fpsDisplay, "FPS : %f     x: %d y:%d", fps,x,y);
-        putText(imageResized, fpsDisplay, cv::Point(30,30), FONT_HERSHEY_COMPLEX, 1.0, cv::Scalar(20,20,25), 1, LINE_AA);
-        imshow("Camera", imageResized);
+        putText(image, fpsDisplay, cv::Point(30,30), FONT_HERSHEY_COMPLEX, 1.0, cv::Scalar(20,20,25), 1, LINE_AA);
+        imshow("Camera", image);
 
-        if(x>10)
+        if(x>50)
         {
-            h+=5;
+            h+=1;
         }else
         {
-            if(x<-10)
+            if(x<-50)
             {
-                h-=5;
+                h-=1;
             }
 
         }
 
-        if(y>10)
+        if(y>50)
         {
-            v+=5;
+            v+=1;
         }else
         {
-            if(y<-10)
+            if(y<-50)
             {
-                v-=5;
+                v-=1;
             }
 
         }
+        // h=x;
+        // v=y;
         arduino<< setw(3)<<h<<setw(3)<<v<<endl;
         if(waitKey(33) == 27) break;
-
+    
     }
+    h=90;
+    v=90;
+    arduino<< setw(3)<<h<<setw(3)<<v<<endl;
+
     arduino.close();
         // free_rgb8matrix(rgbImage, nrl, nrh, ncl, nch);
         // free_rgb8matrix(rgbImage2, nrl, nrh, ncl, nch);
