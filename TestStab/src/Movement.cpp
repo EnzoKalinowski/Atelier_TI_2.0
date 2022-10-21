@@ -2,19 +2,19 @@
 
 void ** Vecteur (byte **imgT, byte **imgTplusUn, int *x, int *y, long nrl, long nrh, long ncl, long nch){
 	int **tabaccu = imatrix0 (nrl, nrh, ncl, nch);
-	int X = (nrl-nrh)/2;
-	int Y = (ncl-nch)/2;
+	int X = (nrh-nrl)/2;
+	int Y = (nch-ncl)/2;
 	int xplus =0;
 	int yplus =0;
 	//printf("avant la lecture des image et l'insertion dans la table d'accumulation\n");
 	for (int i= nrl; i< nrh; i++){
 		for(int j= ncl; j<nch; j++){
-			if(imgT[i][j]==255){
+			if(imgT[i][j]>200){
 				//printf("1ER IF\n");
 				int vect = 100000;	
 				for (int iplus= nrl; iplus< nrh; iplus++){
 					for(int jplus= ncl; jplus<nch; jplus++){
-						if(imgTplusUn[iplus][jplus]==255){
+						if(imgTplusUn[iplus][jplus]>200){
 							//printf("2ND IF\n");
 							//printf("iplus = %d/%d, jplus = %d/%d \n",iplus,nrh,jplus,nch);
 							int vectcalcule = abs(iplus-i)+(jplus-j);
@@ -58,8 +58,8 @@ void ** Vecteur (byte **imgT, byte **imgTplusUn, int *x, int *y, long nrl, long 
 
 void ** VecteurOpti (byte **imgT, byte **imgTplusUn, int *x, int *y, long nrl, long nrh, long ncl, long nch){
 	int **tabaccu = imatrix0 (nrl, nrh, ncl, nch);
-	int X = (nrl-nrh)/2;
-	int Y = (ncl-nch)/2;
+	int X = (nrh-nrl)/2;
+	int Y = (nch-ncl)/2;
 	int xplus =0;
 	int yplus =0;
 	//printf("DEBUT\n");
@@ -68,8 +68,8 @@ void ** VecteurOpti (byte **imgT, byte **imgTplusUn, int *x, int *y, long nrl, l
 	Liste *listePointsInterets3 = initialisation();
 	Liste *listePointsInterets4 = initialisation();
 	//printf("listePointsInterets CREE\n");
-	int nrhsurdeux = nrh/2;
-	int nchsurdeux = nch/2;
+	int nrhsurdeux = X;
+	int nchsurdeux = Y;
 	std::thread t1(listePT,listePointsInterets,imgTplusUn,nrl,nrhsurdeux,ncl,nchsurdeux);
 	std::thread t2(listePT,listePointsInterets2,imgTplusUn,nrl,nrhsurdeux,nchsurdeux,nch);
 	std::thread t3(listePT,listePointsInterets3,imgTplusUn,nrhsurdeux,nrh,ncl,nchsurdeux);
@@ -78,12 +78,7 @@ void ** VecteurOpti (byte **imgT, byte **imgTplusUn, int *x, int *y, long nrl, l
 	t2.join();
 	t3.join();
 	t4.join();
-	std::thread t5(collerListes,listePointsInterets3,listePointsInterets4);
-	std::thread t6(collerListes,listePointsInterets2,listePointsInterets3);
-	std::thread t7(collerListes,listePointsInterets,listePointsInterets2);
-	t5.join();
-	t6.join();
-	t7.join();
+
 	//printf("TEST\n");
 	for (int i= nrl; i< nrh; i++){
 		for(int j= ncl; j<nch; j++){
@@ -96,6 +91,12 @@ void ** VecteurOpti (byte **imgT, byte **imgTplusUn, int *x, int *y, long nrl, l
 			//printf("APRES LE IF\n");
 		}
 	}
+	std::thread t5(collerListes,listePointsInterets3,listePointsInterets4);
+	std::thread t6(collerListes,listePointsInterets2,listePointsInterets3);
+	std::thread t7(collerListes,listePointsInterets,listePointsInterets2);
+	t5.join();
+	t6.join();
+	t7.join();
 	//printf("PREMIER FOR PASSE, on a techniquement ajoute tt les points d interets\n");
 	for (int i= nrl; i< nrh; i++){
 		for(int j= ncl; j<nch; j++){
