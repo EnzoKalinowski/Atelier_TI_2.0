@@ -89,6 +89,7 @@ byte** pickColorRGB(rgb8 **I, byte r, byte g, byte b, long nrl, long nrh, long n
 rgb8** convertMatToRGB8(cv::Mat mat, long *nrl, long *nrh, long *ncl, long *nch){
     int width = mat.cols;
     int height = mat.rows;
+    Vec3b color;
 
     *nrl = 0;
     *nrh = height-1;
@@ -98,7 +99,7 @@ rgb8** convertMatToRGB8(cv::Mat mat, long *nrl, long *nrh, long *ncl, long *nch)
 
     for(int i = *nrl; i < *nrh; i++){
         for(int j = *ncl; j < *nch; j++){
-            Vec3b color = mat.at<Vec3b>(Point(j, i));
+            color = mat.at<Vec3b>(Point(j, i));
             out[i][j].r = color[2];
             out[i][j].g = color[1];
             out[i][j].b = color[0];
@@ -112,6 +113,7 @@ byte** convertMatToByte(cv::Mat mat, long *nrl, long *nrh, long *ncl, long *nch)
     int width = mat.cols;
     int height = mat.rows;
     int grey;
+    Vec3b color;
 
     *nrl = 0;
     *nrh = height-1;
@@ -121,7 +123,7 @@ byte** convertMatToByte(cv::Mat mat, long *nrl, long *nrh, long *ncl, long *nch)
 
     for(int i = *nrl; i < *nrh; i++){
         for(int j = *ncl; j < *nch; j++){
-            Vec3b color = mat.at<Vec3b>(Point(j, i));
+            color = mat.at<Vec3b>(Point(j, i));
             grey = (color[0] + color[1] + color[2]) / 3;
             out[i][j] = grey;
         }
@@ -137,7 +139,7 @@ int isOfColor(rgb8 pxl, byte r, byte g, byte b){
     double targetG = g / targetTotal;
     double targetB = b / targetTotal;
 
-    double total = pxl.r + pxl.g + pxl.b;
+    double total = pxl.r + pxl.g + pxl.b + 10e-9;
     double pxlR = pxl.r / total;
     double pxlG = pxl.g / total;
     double pxlB = pxl.b / total;
