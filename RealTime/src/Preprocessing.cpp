@@ -44,17 +44,18 @@ void RGBtoHSV(byte _r, byte _g, byte _b, double *h, double *s, double *v){
 }
 
 /**
- * @brief
+ * @brief scans the picture and turns the corresponding pixels to white
+ * similar to pickColorRGB() but uses the conversion function RGBtoHSV()
  *
- * @param I
- * @param r
- * @param g
- * @param b
- * @param nrl
- * @param nrh
- * @param ncl
- * @param nch
- * @return
+ * @param I the image
+ * @param r red component the color you want
+ * @param g green component the color you want
+ * @param b blue component the color you want
+ * @param nrl number row low (lowest index of rows)
+ * @param nrh number row high (highest index of rows)
+ * @param ncl number column low (lowest index of col)
+ * @param nch number column high (highest index of col)
+ * @return an image (bmatrix)
  */
 byte** pickColorHSV(rgb8 **I, byte r, byte g, byte b, long nrl, long nrh, long ncl, long nch){
     double _h, _s, _v, h, s, v;
@@ -79,17 +80,20 @@ byte** pickColorHSV(rgb8 **I, byte r, byte g, byte b, long nrl, long nrh, long n
 }
 
 /**
- * @brief
+ * @brief scans the picture and turns the corresponding pixels to white
  *
- * @param I
- * @param r
- * @param g
- * @param b
- * @param nrl
- * @param nrh
- * @param ncl
- * @param nch
- * @return
+ * the pixels with a color that matches the color passed in the parameters and converted to
+ * white pixels. The resulting image shows the object detected. Cf also pickColorHSV()
+ *
+ * @param I the image
+ * @param r red component the color you want
+ * @param g green component the color you want
+ * @param b blue component the color you want
+ * @param nrl number row low (lowest index of rows)
+ * @param nrh number row high (highest index of rows)
+ * @param ncl number column low (lowest index of col)
+ * @param nch number column high (highest index of col)
+ * @return an image (bmatrix) with the detected pxls turned to white
  */
 byte** pickColorRGB(rgb8 **I, byte r, byte g, byte b, long nrl, long nrh, long ncl, long nch){
     byte **res = bmatrix(nrl, nrh, ncl, nch);
