@@ -1,6 +1,12 @@
 #include "Tracking.h"
 #include "Preprocessing.h"
 
+/**
+ * Creates a gaussian filter
+ * @param sigma param of the gaussian distribution
+ * @param size of the filter (size by size)
+ * @return the filter
+ */
 double ** create_gaussian_filter(float sigma, int size)
 {
 	double **G=dmatrix(0,size-1,0,size-1);
@@ -28,6 +34,24 @@ double ** create_gaussian_filter(float sigma, int size)
 	return G;
 }
 
+/**
+ * harris method
+ *
+ * @param I
+ * @param Ix
+ * @param Iy
+ * @param C
+ * @param filter
+ * @param filter_size
+ * @param lambda
+ * @param nrl
+ * @param nrh
+ * @param ncl
+ * @param nch
+ * @param start
+ * @param end
+ * @return
+ */
 double ** harris(byte **I, double **Ix, double **Iy, double **C, double** filter, int filter_size, float lambda, long nrl, long nrh, long ncl, long nch, int start, int end)
 {
 	double Ix_square, Iy_square, IxIy;
@@ -63,6 +87,17 @@ double ** harris(byte **I, double **Ix, double **Iy, double **C, double** filter
 	}
 }
 
+/**
+ *
+ * @param I
+ * @param filter
+ * @param filter_size
+ * @param nrl
+ * @param nrh
+ * @param ncl
+ * @param nch
+ * @return
+ */
 double ** gradient_direction_interest_points(byte **I, double** filter, int filter_size, long nrl, long nrh, long ncl, long nch)
 {
 	double ** C;
@@ -112,6 +147,17 @@ double ** gradient_direction_interest_points(byte **I, double** filter, int filt
 	return C;
 }
 
+/**
+ *
+ * @param I
+ * @param filter
+ * @param filter_size
+ * @param nrl
+ * @param nrh
+ * @param ncl
+ * @param nch
+ * @return
+ */
 byte ** convolve(byte **I, double** filter, int filter_size, long nrl, long nrh, long ncl, long nch)
 {	
 	byte ** out;
@@ -149,6 +195,16 @@ byte ** convolve(byte **I, double** filter, int filter_size, long nrl, long nrh,
 	return out;
 }
 
+/**
+ *
+ * @param I
+ * @param Ix
+ * @param Iy
+ * @param nrl
+ * @param nrh
+ * @param ncl
+ * @param nch
+ */
 void sobel(byte **I, double **Ix, double **Iy, long nrl, long nrh, long ncl, long nch)
 {
 	int i,j;
@@ -182,6 +238,16 @@ void sobel(byte **I, double **Ix, double **Iy, long nrl, long nrh, long ncl, lon
 
 }
 
+/**
+ *
+ * @param SobelX
+ * @param SobelY
+ * @param Sobel
+ * @param nrl
+ * @param nrh
+ * @param ncl
+ * @param nch
+ */
 void norm_gradient(double **SobelX, double **SobelY, double **Sobel, long nrl, long nrh, long ncl, long nch)
 {
 	for(int i=nrl;i<nrh;i++)
@@ -193,14 +259,24 @@ void norm_gradient(double **SobelX, double **SobelY, double **Sobel, long nrl, l
 	}	
 }
 
-void binarize(byte **I, byte **B, int treshold, long nrl, long nrh, long ncl, long nch)
+/**
+ *
+ * @param I
+ * @param B
+ * @param threshold
+ * @param nrl
+ * @param nrh
+ * @param ncl
+ * @param nch
+ */
+void binarize(byte **I, byte **B, int threshold, long nrl, long nrh, long ncl, long nch)
 {
 	int i, j;
 	for (i = nrl; i < nrh; i++)
 	{
 		for (j = ncl; j < nch; j++)
 		{
-			if (I[i][j] > treshold)
+			if (I[i][j] > threshold)
 			{
 				B[i][j] = 255;
 			}
@@ -212,6 +288,15 @@ void binarize(byte **I, byte **B, int treshold, long nrl, long nrh, long ncl, lo
 	}
 }
 
+/**
+ *
+ * @param I
+ * @param B
+ * @param nrl
+ * @param nrh
+ * @param ncl
+ * @param nch
+ */
 void convert_rgb8_to_byte(rgb8 **I, byte **B, long nrl, long nrh, long ncl, long nch)
 {
 	int i, j;
@@ -226,6 +311,15 @@ void convert_rgb8_to_byte(rgb8 **I, byte **B, long nrl, long nrh, long ncl, long
 	}
 }
 
+/**
+ *
+ * @param D
+ * @param B
+ * @param nrl
+ * @param nrh
+ * @param ncl
+ * @param nch
+ */
 void convert_dmatrix_bmatrix(double **D, byte **B, long nrl, long nrh, long ncl, long nch)
 {
 
@@ -238,6 +332,16 @@ void convert_dmatrix_bmatrix(double **D, byte **B, long nrl, long nrh, long ncl,
 	}
 }
 
+/**
+ *
+ * @param I
+ * @param nrl
+ * @param nrh
+ * @param ncl
+ * @param nch
+ * @param x
+ * @param y
+ */
 void getBarycenterColor(rgb8 **I, long nrl, long nrh, long ncl, long nch, int *x, int *y){
 	*x = 0;
 	*y = 0;
