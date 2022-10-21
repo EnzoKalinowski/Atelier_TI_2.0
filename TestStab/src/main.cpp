@@ -76,16 +76,16 @@ int main(){
     
     
 
-    Vecteur (ImgTGris, ImgTPlusUnGris, &x, &y, nrl, nrh, ncl, nch);
+    //Vecteur (ImgTGris, ImgTPlusUnGris, &x, &y, nrl, nrh, ncl, nch);
 
     //printf("x = %p, y = %p.",*x,*y);
     //printf("FIN !!! \n");
-
+    /*
     time_t temps3 = time(NULL);
     float tempsfct1 = temps3-temps2;
     printf("La premiere fct : Vecteur a prit %f secondes. \n", tempsfct1);
     printf("x = %d, y = %d.\n",x,y);
-
+    */
     
 
     time_t temps4 = time(NULL);

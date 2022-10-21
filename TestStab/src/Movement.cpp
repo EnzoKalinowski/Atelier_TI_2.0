@@ -22,8 +22,8 @@ void ** Vecteur (byte **imgT, byte **imgTplusUn, int *x, int *y, long nrl, long 
 							if (vectcalcule<vect){
 								//printf("3EME IF\n");
 								vect = vectcalcule;
-								xplus = iplus;
-								yplus = jplus;
+								xplus = iplus-i;
+								yplus = jplus-j;
 							}
 						}
 					}
@@ -84,10 +84,11 @@ void ** VecteurOpti (byte **imgT, byte **imgTplusUn, int *x, int *y, long nrl, l
 	t5.join();
 	t6.join();
 	t7.join();
+	//printf("TEST\n");
 	for (int i= nrl; i< nrh; i++){
 		for(int j= ncl; j<nch; j++){
 			//printf("AVANT LE IF, 	i = %d, j = %d \n",i,j);
-			if(imgTplusUn[i][j]==255){
+			if(imgTplusUn[i][j]>200){
 				//prin("DANS LE IF AVANT L'AJOUT\n");
 				insertion(listePointsInterets, i, j);
 				//printf("DANS LE IF APRES L'AJOUT\n");
@@ -98,19 +99,21 @@ void ** VecteurOpti (byte **imgT, byte **imgTplusUn, int *x, int *y, long nrl, l
 	//printf("PREMIER FOR PASSE, on a techniquement ajoute tt les points d interets\n");
 	for (int i= nrl; i< nrh; i++){
 		for(int j= ncl; j<nch; j++){
-			if(imgT[i][j]==255){
+			if(imgT[i][j]>200){
 				int vect = 100000;
 				Element *actuel = listePointsInterets->premier;
 				while(actuel!=NULL){
+					//printf("AVANT le if du remplacement du meilleur vect\n");
 					int vectcalcule = abs(actuel->i-i)+(actuel->j-j);
 					if (vectcalcule<vect){
+						//printf("dans le if du remplacement du meilleur vect\n");
 						vect = vectcalcule;
-						xplus = actuel->i;
-						yplus = actuel->j;
+						xplus = actuel->i-i;
+						yplus = actuel->j-j;
 					}
 					actuel = actuel->suivant;
 				}
-				tabaccu[xplus][yplus] ++; 
+				tabaccu[X+xplus][Y+yplus] ++; 
 			}
 		}
 	}
@@ -130,8 +133,8 @@ void ** VecteurOpti (byte **imgT, byte **imgTplusUn, int *x, int *y, long nrl, l
 	//printf("TROISIEME FORT PASSE\n");
 	////printf("apres avoir recupere le vecteur\n");
 	////printf("xplus = %d, yplus = %d\n",xplus,yplus);
-	*x = xplus;
-	*y = yplus;
+	*x = xplus-X;
+	*y = yplus-Y;
 	////printf("x = %d, y = %d\n",x,y);
 	////printf("fin de la fonction \n");
 	free_imatrix (tabaccu, nrl, nrh, ncl, nch);
