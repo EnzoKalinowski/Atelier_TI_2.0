@@ -28,18 +28,12 @@ double ** create_gaussian_filter(float sigma, int size)
 	return G;
 }
 
-double ** harris(byte **I, double **C, double** filter, int filter_size, float lambda, long nrl, long nrh, long ncl, long nch, int start, int end)
+double ** betterHarris(byte **I, double **Ix, double **Iy, double **C, double** filter, int filter_size, float lambda, long nrl, long nrh, long ncl, long nch, int start, int end)
 {
-	double ** Ix;
-	double ** Iy;
 	double Ix_square, Iy_square, IxIy;
+	double filterValue, IxValue, IyValue;
 
 	int max=filter_size/2;
-
-	Ix= dmatrix(nrl,nrh,ncl,nch);
-	Iy= dmatrix(nrl,nrh,ncl,nch);
-
-	sobel(I,Ix,Iy,nrl,nrh,ncl,nch);
 
 	for (int x=start+max; x<=end-max; x++)
 	{
@@ -53,20 +47,20 @@ double ** harris(byte **I, double **C, double** filter, int filter_size, float l
 			{
 				for(int j=-max;j<=max;j++)
 				{
+					filterValue = filter[i+max][j+max];
+					IxValue = Ix[x+i][y+j];
+					IyValue = Iy[x+i][y+j];
 
-					Ix_square+= filter[i+max][j+max]*pow(Ix[x+i][y+j],2);
-					Iy_square+= filter[i+max][j+max]*pow(Iy[x+i][y+j],2);
-					IxIy+= filter[i+max][j+max]*(Ix[x+i][y+j]*Iy[x+i][y+j]);
+					Ix_square += filterValue*IxValue*IxValue;
+					Iy_square += filterValue*IyValue*IyValue;
+					IxIy += filterValue*(IxValue*IyValue);
 
 				}
 			}
 
-			C[x][y]=(Ix_square*Iy_square)-(IxIy)-(lambda*pow(Ix_square+Iy_square,2));
+			C[x][y]=(Ix_square*Iy_square)-(IxIy)-(lambda*(Ix_square+Iy_square)*(Ix_square+Iy_square));
 		}
 	}
-
-	free_dmatrix(Ix,nrl, nrh, ncl, nch);
-	free_dmatrix(Iy,nrl, nrh, ncl, nch);
 }
 
 double ** gradient_direction_interest_points(byte **I, double** filter, int filter_size, long nrl, long nrh, long ncl, long nch)
@@ -161,17 +155,27 @@ void sobel(byte **I, double **Ix, double **Iy, long nrl, long nrh, long ncl, lon
 	long total;
 	int SobelH[3][3]={{-1,0,1},{-2,0,2},{-1,0,1} };
 	int SobelV[3][3]={{-1,-2,-1},{0,0,0},{1,2,1} };
+	byte I1, I2, I3, I4, I5, I6, I7, I8, I9;
 
 	for(i=nrl+1;i<nrh;i++)
 	{	
 		for(j=ncl+1;j<nch;j++)
 		{
+			I1 = I[i-1][j-1];
+			I2 = I[i][j-1];
+			I3 = I[i+1][j-1];
+			I4 = I[i-1][j];
+			I6 = I[i+1][j];
+			I7 = I[i-1][j+1];
+			I8 = I[i][j+1];
+			I9 = I[i+1][j+1];
+
 			//convolution Sobel horizontal
-			total=I[i-1][j-1]*SobelH[0][0] + I[i][j-1]*SobelH[1][0] + I[i+1][j-1]*SobelH[2][0] + I[i-1][j]*SobelH[0][1] + I[i][j]*SobelH[1][1] + I[i+1][j]*SobelH[2][1] + I[i-1][j+1]*SobelH[0][2] + I[i][j+1]*SobelH[1][2] + I[i+1][j+1]*SobelH[2][2];
+			total=-I1 + I3 - I4*2 + I6*2 - I7 + I9;
 			Ix[i][j]=total/4;
 
 			//convolution Sobel horizontal
-			total=I[i-1][j-1]*SobelV[0][0] + I[i][j-1]*SobelV[1][0] + I[i+1][j-1]*SobelV[2][0] + I[i-1][j]*SobelV[0][1] + I[i][j]*SobelV[1][1] + I[i+1][j]*SobelV[2][1] + I[i-1][j+1]*SobelV[0][2] + I[i][j+1]*SobelV[1][2] + I[i+1][j+1]*SobelV[2][2];
+			total=-I1 - I2*2 - I3 + I7 + I8*2 + I9;
 			Iy[i][j]=total/4;
 		}
 	}
