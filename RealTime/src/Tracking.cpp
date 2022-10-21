@@ -28,7 +28,7 @@ double ** create_gaussian_filter(float sigma, int size)
 	return G;
 }
 
-double ** betterHarris(byte **I, double **Ix, double **Iy, double **C, double** filter, int filter_size, float lambda, long nrl, long nrh, long ncl, long nch, int start, int end)
+double ** harris(byte **I, double **Ix, double **Iy, double **C, double** filter, int filter_size, float lambda, long nrl, long nrh, long ncl, long nch, int start, int end)
 {
 	double Ix_square, Iy_square, IxIy;
 	double filterValue, IxValue, IyValue;
