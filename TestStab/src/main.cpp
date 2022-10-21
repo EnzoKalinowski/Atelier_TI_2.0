@@ -3,6 +3,8 @@
 #include <time.h>
 #include "Movement.h"
 #include "Tracking.h"
+//#include <pthread.h>
+#include <thread>
 
 int main(){
 
@@ -71,7 +73,11 @@ int main(){
     time_t temps2 = time(NULL);
     float tempsavantfct = temps2-temps1;
     printf("Avant les fct on a prit %f secondes. \n", tempsavantfct);
+    
+    
+
     Vecteur (ImgTGris, ImgTPlusUnGris, &x, &y, nrl, nrh, ncl, nch);
+
     //printf("x = %p, y = %p.",*x,*y);
     //printf("FIN !!! \n");
 
@@ -79,6 +85,8 @@ int main(){
     float tempsfct1 = temps3-temps2;
     printf("La premiere fct : Vecteur a prit %f secondes. \n", tempsfct1);
     printf("x = %d, y = %d.\n",x,y);
+
+    
 
     time_t temps4 = time(NULL);
     VecteurOpti(ImgTGris, ImgTPlusUnGris, &x, &y, nrl, nrh, ncl, nch);

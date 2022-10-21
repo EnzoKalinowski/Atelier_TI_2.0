@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <thread>
 
 #include "./NRC/def.h"
 #include "./NRC/nrio.h"
@@ -29,5 +30,7 @@ void ** VecteurOpti (byte **imgT, byte **imgTplusUn, int *x, int *y, long nrl, l
 Liste *initialisation();
 void insertion(Liste *liste, int i, int j);
 void suppression(Liste *liste);
+void listePT(Liste *listePointsInterets,byte **imgTplusUn,long nrl, long nrh, long ncl, long nch);
+void collerListes(Liste *liste1, Liste *liste2);
 
 #endif // __MOVEMENT_H__

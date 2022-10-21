@@ -12,11 +12,11 @@ INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 CPPFLAGS ?= $(INC_FLAGS) -MMD -MP
 
 main: create_folders $(OBJS)
-	g++ $(OBJS) -o $(BIN_DIR)/main
+	g++ $(OBJS) -o $(BIN_DIR)/main -pg
 
 $(BUILD_DIR)/%.c.o: %.c
 	@mkdir -p $(dir $@)
-	g++ $(CPPFLAGS) -c $< -o $@
+	g++ $(CPPFLAGS) -pg -c $< -o $@
 $(BUILD_DIR)/%.cpp.o: %.cpp
 	@mkdir -p $(dir $@)
 	g++ $(CPPFLAGS) -c $< -o $@

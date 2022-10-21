@@ -64,8 +64,26 @@ void ** VecteurOpti (byte **imgT, byte **imgTplusUn, int *x, int *y, long nrl, l
 	int yplus =0;
 	//printf("DEBUT\n");
 	Liste *listePointsInterets = initialisation();
+	Liste *listePointsInterets2 = initialisation();
+	Liste *listePointsInterets3 = initialisation();
+	Liste *listePointsInterets4 = initialisation();
 	//printf("listePointsInterets CREE\n");
-
+	int nrhsurdeux = nrh/2;
+	int nchsurdeux = nch/2;
+	std::thread t1(listePT,listePointsInterets,imgTplusUn,nrl,nrhsurdeux,ncl,nchsurdeux);
+	std::thread t2(listePT,listePointsInterets2,imgTplusUn,nrl,nrhsurdeux,nchsurdeux,nch);
+	std::thread t3(listePT,listePointsInterets3,imgTplusUn,nrhsurdeux,nrh,ncl,nchsurdeux);
+	std::thread t4(listePT,listePointsInterets4,imgTplusUn,nrhsurdeux,nrh,nchsurdeux,nch);
+	t1.join();
+	t2.join();
+	t3.join();
+	t4.join();
+	std::thread t5(collerListes,listePointsInterets3,listePointsInterets4);
+	std::thread t6(collerListes,listePointsInterets2,listePointsInterets3);
+	std::thread t7(collerListes,listePointsInterets,listePointsInterets2);
+	t5.join();
+	t6.join();
+	t7.join();
 	for (int i= nrl; i< nrh; i++){
 		for(int j= ncl; j<nch; j++){
 			//printf("AVANT LE IF, 	i = %d, j = %d \n",i,j);
@@ -118,9 +136,30 @@ void ** VecteurOpti (byte **imgT, byte **imgTplusUn, int *x, int *y, long nrl, l
 	////printf("fin de la fonction \n");
 	free_imatrix (tabaccu, nrl, nrh, ncl, nch);
 	//printf("On supp la liste\n");
-	suppression(listePointsInterets);
+	//suppression(listePointsInterets);
+	std::thread t8(suppression,listePointsInterets2);
+	std::thread t9(suppression,listePointsInterets3);
+	std::thread t10(suppression,listePointsInterets4);
+	std::thread t11(suppression,listePointsInterets);
+	t8.join();
+	t9.join();
+	t10.join();
+	t11.join();
 }
 
+void listePT(Liste *listePointsInterets,byte **imgTplusUn,long nrl, long nrh, long ncl, long nch){
+	for (int i= nrl; i< nrh; i++){
+		for(int j= ncl; j<nch; j++){
+			//printf("AVANT LE IF, 	i = %d, j = %d \n",i,j);
+			if(imgTplusUn[i][j]==255){
+				//prin("DANS LE IF AVANT L'AJOUT\n");
+				insertion(listePointsInterets, i, j);
+				//printf("DANS LE IF APRES L'AJOUT\n");
+			}
+			//printf("APRES LE IF\n");
+		}
+	}	
+}
 
 Liste *initialisation()
 {
@@ -140,6 +179,14 @@ Liste *initialisation()
     liste->premier = element;
 
     return liste;
+}
+
+void collerListes(Liste *liste1, Liste *liste2){
+	Element *actuel = liste1->premier;
+	while(actuel->suivant!=NULL){
+		actuel = actuel->suivant;
+	}
+	actuel->suivant = liste2->premier;
 }
 
 void insertion(Liste *liste, int i, int j)

@@ -1,0 +1,49 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  Ts/call  Ts/call  name    
+ 46.66      2.93     2.93                             harris(unsigned char**, double**, int, float, long, long, long, long)
+ 24.84      4.49     1.56                             Vecteur(unsigned char**, unsigned char**, int*, int*, long, long, long, long)
+ 10.67      5.16     0.67                             sobel(unsigned char**, double**, double**, long, long, long, long)
+ 10.27      5.80     0.65                             __gnu_cxx::__promote_2<double, int, __gnu_cxx::__promote<double, std::__is_integer<double>::__value>::__type, __gnu_cxx::__promote<int, std::__is_integer<int>::__value>::__type>::__type std::pow<double, int>(double, int)
+  2.23      5.95     0.14                             _init
+  1.91      6.07     0.12                             convert_rgb8_to_byte(rgb8**, unsigned char**, long, long, long, long)
+  1.27      6.14     0.08                             VecteurOpti(unsigned char**, unsigned char**, int*, int*, long, long, long, long)
+  1.11      6.21     0.07                             convert_dmatrix_bmatrix(double**, unsigned char**, long, long, long, long)
+  0.48      6.25     0.03                             std::abs(double)
+  0.32      6.26     0.02                             listePT(Liste*, unsigned char**, long, long, long, long)
+  0.24      6.28     0.01                             __gnu_cxx::__promote_2<float, int, __gnu_cxx::__promote<float, std::__is_integer<float>::__value>::__type, __gnu_cxx::__promote<int, std::__is_integer<int>::__value>::__type>::__type std::pow<float, int>(float, int)
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2022 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
