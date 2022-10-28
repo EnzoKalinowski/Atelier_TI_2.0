@@ -1,26 +1,22 @@
 #include "Movement.h"
 
+
+// premiere fonction de calcul du vecteur de maniere non optimisee
 void ** Vecteur (byte **imgT, byte **imgTplusUn, int *x, int *y, long nrl, long nrh, long ncl, long nch){
-	int **tabaccu = imatrix0 (nrl, nrh, ncl, nch);
+	int **tabaccu = imatrix0 (nrl, nrh, ncl, nch); // Creqtion de la table 'accumulation
 	int X = (nrh-nrl)/2;
 	int Y = (nch-ncl)/2;
 	int xplus =0;
 	int yplus =0;
-	//printf("avant la lecture des image et l'insertion dans la table d'accumulation\n");
 	for (int i= nrl; i< nrh; i++){
-		for(int j= ncl; j<nch; j++){
-			if(imgT[i][j]>200){
-				//printf("1ER IF\n");
+		for(int j= ncl; j<nch; j++){ // Parcourt de l'image T
+			if(imgT[i][j]>200){ // seuil definissant un point d'interet 
 				int vect = 100000;	
 				for (int iplus= nrl; iplus< nrh; iplus++){
-					for(int jplus= ncl; jplus<nch; jplus++){
-						if(imgTplusUn[iplus][jplus]>200){
-							//printf("2ND IF\n");
-							//printf("iplus = %d/%d, jplus = %d/%d \n",iplus,nrh,jplus,nch);
-							int vectcalcule = abs(iplus-i)+(jplus-j);
-							//printf("APRES VECTCALCULE!!!\n");
-							if (vectcalcule<vect){
-								//printf("3EME IF\n");
+					for(int jplus= ncl; jplus<nch; jplus++){ // Parcourt de la seconde image 
+						if(imgTplusUn[iplus][jplus]>200){ // seuil definissant un point d'interet 
+							int vectcalcule = abs(iplus-i)+(jplus-j); // calcul de la distance entre les deux points 
+							if (vectcalcule<vect){ // mise a jour du point associe au vecteur optimal
 								vect = vectcalcule;
 								xplus = iplus-i;
 								yplus = jplus-j;
@@ -28,49 +24,39 @@ void ** Vecteur (byte **imgT, byte **imgTplusUn, int *x, int *y, long nrl, long 
 						}
 					}
 				}
-			//printf("Avant de remplir tabaccu\n");
-			tabaccu[xplus][yplus] ++; 
-			//printf("Apres avoir rempli tabaccu\n");
+			tabaccu[xplus][yplus] ++; // incrementation de la table d'accumulation
 			}
 		}
 	}
-	//printf("apres avoir rempli la table d'accumulation\n");
 	long maxaccu = 0;
 	for (int i= nrl; i< nrh; i++){
-		for(int j= ncl; j<nch; j++){
-			if (tabaccu[i][j]>maxaccu){
+		for(int j= ncl; j<nch; j++){ // parcourt de la table d'accumulation
+			if (tabaccu[i][j]>maxaccu){// mise a jour du vecteur optimal 
 				maxaccu = tabaccu[i][j];
 				xplus = i;
 				yplus = j;
 			}
-			//printf("%d",tabaccu[i][j]);
 		}
-		//printf("\n");
 	}
-	//printf("apres avoir recupere le vecteur\n");
-	//printf("xplus = %d, yplus = %d\n",xplus,yplus);
-	*x = xplus;
+	*x = xplus; // retour des coordonnees du point associe au vectuer optimal
 	*y = yplus;
-	//printf("x = %d, y = %d\n",x,y);
-	//printf("fin de la fonction \n");
-	free_imatrix (tabaccu, nrl, nrh, ncl, nch);
+	free_imatrix (tabaccu, nrl, nrh, ncl, nch); // liberation de la table d'accumulation
 }
 
+// seconde fonction de calcul du vecteur de maniere  optimisee
 void ** VecteurOpti (byte **imgT, byte **imgTplusUn, int *x, int *y, long nrl, long nrh, long ncl, long nch){
-	int **tabaccu = imatrix0 (nrl, nrh, ncl, nch);
+	int **tabaccu = imatrix0 (nrl, nrh, ncl, nch); // Creqtion de la table 'accumulation
 	int X = (nrh-nrl)/2;
 	int Y = (nch-ncl)/2;
 	int xplus =0;
 	int yplus =0;
-	//printf("DEBUT\n");
-	Liste *listePointsInterets = initialisation();
+	Liste *listePointsInterets = initialisation(); // creation de 4 listes de points 
 	Liste *listePointsInterets2 = initialisation();
 	Liste *listePointsInterets3 = initialisation();
 	Liste *listePointsInterets4 = initialisation();
-	//printf("listePointsInterets CREE\n");
 	int nrhsurdeux = X;
 	int nchsurdeux = Y;
-	std::thread t1(listePT,listePointsInterets,imgTplusUn,nrl,nrhsurdeux,ncl,nchsurdeux);
+	std::thread t1(listePT,listePointsInterets,imgTplusUn,nrl,nrhsurdeux,ncl,nchsurdeux); // multithreading en 4 du parcourt et de l'ajout dans les 4 listes des points d'interets de l'image T+1
 	std::thread t2(listePT,listePointsInterets2,imgTplusUn,nrl,nrhsurdeux,nchsurdeux,nch);
 	std::thread t3(listePT,listePointsInterets3,imgTplusUn,nrhsurdeux,nrh,ncl,nchsurdeux);
 	std::thread t4(listePT,listePointsInterets4,imgTplusUn,nrhsurdeux,nrh,nchsurdeux,nch);
@@ -79,69 +65,51 @@ void ** VecteurOpti (byte **imgT, byte **imgTplusUn, int *x, int *y, long nrl, l
 	t3.join();
 	t4.join();
 
-	//printf("TEST\n");
-	for (int i= nrl; i< nrh; i++){
-		for(int j= ncl; j<nch; j++){
-			//printf("AVANT LE IF, 	i = %d, j = %d \n",i,j);
-			if(imgTplusUn[i][j]>200){
-				//prin("DANS LE IF AVANT L'AJOUT\n");
+	/*for (int i= nrl; i< nrh; i++){
+		for(int j= ncl; j<nch; j++){ // Pqrcourt de l'image T+1
+			if(imgTplusUn[i][j]>200){// seuil definissant un point d'interet 
 				insertion(listePointsInterets, i, j);
-				//printf("DANS LE IF APRES L'AJOUT\n");
 			}
-			//printf("APRES LE IF\n");
 		}
-	}
-	std::thread t5(collerListes,listePointsInterets3,listePointsInterets4);
+	}*/
+	std::thread t5(collerListes,listePointsInterets3,listePointsInterets4); //multithreading du regroupement des 4 listes en 1 liste
 	std::thread t6(collerListes,listePointsInterets2,listePointsInterets3);
 	std::thread t7(collerListes,listePointsInterets,listePointsInterets2);
 	t5.join();
 	t6.join();
 	t7.join();
-	//printf("PREMIER FOR PASSE, on a techniquement ajoute tt les points d interets\n");
 	for (int i= nrl; i< nrh; i++){
-		for(int j= ncl; j<nch; j++){
-			if(imgT[i][j]>200){
+		for(int j= ncl; j<nch; j++){ // Parcourt de l'image T
+			if(imgT[i][j]>200){// seuil definissant un point d'interet 
 				int vect = 100000;
-				Element *actuel = listePointsInterets->premier;
-				while(actuel!=NULL){
-					//printf("AVANT le if du remplacement du meilleur vect\n");
-					int vectcalcule = abs(actuel->i-i)+(actuel->j-j);
-					if (vectcalcule<vect){
-						//printf("dans le if du remplacement du meilleur vect\n");
+				Element *actuel = listePointsInterets->premier; 
+				while(actuel!=NULL){// pour chaque point d'interet de T on parcourt la liste chainee des points de T+1
+					int vectcalcule = abs(actuel->i-i)+(actuel->j-j); // calcul de la distance entre les deux points 
+					if (vectcalcule<vect){// mise a jour du point associe au vecteur optimal
 						vect = vectcalcule;
 						xplus = actuel->i-i;
 						yplus = actuel->j-j;
 					}
 					actuel = actuel->suivant;
 				}
-				tabaccu[X+xplus][Y+yplus] ++; 
+				tabaccu[X+xplus][Y+yplus] ++; // incrementation de la table d'accumulation
 			}
 		}
 	}
-	//printf("DEUXIEME FOR PASSE, on a parcouru tt la seconde image \n");
 	long maxaccu = 0;
 	for (int i= nrl; i< nrh; i++){
-		for(int j= ncl; j<nch; j++){
-			if (tabaccu[i][j]>maxaccu){
+		for(int j= ncl; j<nch; j++){// parcourt de la table d'accumulation
+			if (tabaccu[i][j]>maxaccu){// mise a jour du vecteur optimal 
 				maxaccu = tabaccu[i][j];
 				xplus = i;
-				yplus = j;
+				yplus = j;// retour des coordonnees du point associe au vectuer optimal
 			}
-			////printf("%d",tabaccu[i][j]);
 		}
-		////printf("\n");
 	}
-	//printf("TROISIEME FORT PASSE\n");
-	////printf("apres avoir recupere le vecteur\n");
-	////printf("xplus = %d, yplus = %d\n",xplus,yplus);
 	*x = xplus-X;
-	*y = yplus-Y;
-	////printf("x = %d, y = %d\n",x,y);
-	////printf("fin de la fonction \n");
-	free_imatrix (tabaccu, nrl, nrh, ncl, nch);
-	//printf("On supp la liste\n");
-	//suppression(listePointsInterets);
-	std::thread t8(suppression,listePointsInterets2);
+	*y = yplus-Y;// retour des coordonnees du point associe au vectuer optimal
+	free_imatrix (tabaccu, nrl, nrh, ncl, nch); // liberation de la table d'accumulation
+	std::thread t8(suppression,listePointsInterets2); // liberation des listes chainees 
 	std::thread t9(suppression,listePointsInterets3);
 	std::thread t10(suppression,listePointsInterets4);
 	std::thread t11(suppression,listePointsInterets);
@@ -151,25 +119,20 @@ void ** VecteurOpti (byte **imgT, byte **imgTplusUn, int *x, int *y, long nrl, l
 	t11.join();
 }
 
+// Fonction de parcourt d4une image et d'ajout de ces points d'interets dans une liste chainee 
 void listePT(Liste *listePointsInterets,byte **imgTplusUn,long nrl, long nrh, long ncl, long nch){
 	for (int i= nrl; i< nrh; i++){
-		for(int j= ncl; j<nch; j++){
-			//printf("AVANT LE IF, 	i = %d, j = %d \n",i,j);
-			if(imgTplusUn[i][j]==255){
-				//prin("DANS LE IF AVANT L'AJOUT\n");
-				insertion(listePointsInterets, i, j);
-				//printf("DANS LE IF APRES L'AJOUT\n");
+		for(int j= ncl; j<nch; j++){ // Parcourt de l'image 
+			if(imgTplusUn[i][j]==255){ // seuil definissant un point d'interet 
+				insertion(listePointsInterets, i, j); // ajout dans la liste des coordonnees du point 
 			}
-			//printf("APRES LE IF\n");
 		}
 	}	
 }
 
 Liste *initialisation()
 {
-    //Liste *liste = malloc(sizeof(*liste));
 	Liste *liste = new Liste;
-    //Element *element = malloc(sizeof(*element));
 	Element *element = new Element;
 
     if (liste == NULL || element == NULL)
@@ -195,8 +158,6 @@ void collerListes(Liste *liste1, Liste *liste2){
 
 void insertion(Liste *liste, int i, int j)
 {
-    /* Création du nouvel élément */
-    //Element *nouveau = malloc(sizeof(*nouveau));
 	Element *nouveau = new Element;
     if (liste == NULL || nouveau == NULL)
     {
@@ -205,7 +166,6 @@ void insertion(Liste *liste, int i, int j)
     nouveau->i = i;
 	nouveau->j = j;
 
-    /* Insertion de l'élément au début de la liste */
     nouveau->suivant = liste->premier;
     liste->premier = nouveau;
 }
