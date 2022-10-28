@@ -1,0 +1,14 @@
+ReadMee
+
+Il y a trois codes :
+
+Arduino :
+
+	permet de piloter les mouvements de la camera
+	
+RealTime:
+	Permet d'effectuer les actions de suivie et de stabilisation en temps reel.
+	
+TestStab:
+	Permet de calculer efficassement sur 2 image le vecteur de mouvement en fonction des points d'interets.
+
